@@ -1,6 +1,4 @@
-package pl.carrifyandroid.Screens.SplashScreen;
-
-import android.widget.Toast;
+package pl.carrifyandroid.Screens.Auth.Register;
 
 import androidx.annotation.NonNull;
 
@@ -17,24 +15,24 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class SplashManager {
+public class RegisterManager {
 
     StorageHelper storageHelper;
     private API api;
-    private SplashActivity splashActivity;
+    private RegisterActivity registerActivity;
 
     @Inject
-    public SplashManager(API api, StorageHelper storageHelper) {
+    public RegisterManager(API api, StorageHelper storageHelper) {
         this.api = api;
         this.storageHelper = storageHelper;
     }
 
-    void onAttach(SplashActivity splashActivity) {
-        this.splashActivity = splashActivity;
+    public void onAttach(RegisterActivity registerActivity) {
+        this.registerActivity = registerActivity;
     }
 
-    void onStop() {
-        this.splashActivity = null;
+    public void onStop() {
+        this.registerActivity = null;
     }
 
     void checkValidation(String token) {
@@ -42,11 +40,13 @@ public class SplashManager {
         call.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(@NonNull Call<Integer> call, @NotNull Response<Integer> response) {
-                if (splashActivity != null)
+                if (registerActivity != null)
                     if (response.isSuccessful()) {
-                        splashActivity.progressResponse(response.body());
-                    } else
-                        splashActivity.showErrorResponse();
+                        //registerActivity.progressResponse(response.body());
+                    } else {
+
+                    }
+                       // registerActivity.showErrorResponse(ErrorHandler.getMessageFromErrorBody(response.errorBody()));
             }
 
             @Override

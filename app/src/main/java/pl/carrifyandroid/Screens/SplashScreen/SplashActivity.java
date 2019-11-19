@@ -1,5 +1,6 @@
 package pl.carrifyandroid.Screens.SplashScreen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,15 +15,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pl.carrifyandroid.App;
-import pl.carrifyandroid.Models.TestUser;
+import pl.carrifyandroid.MainActivity;
 import pl.carrifyandroid.R;
+import pl.carrifyandroid.Screens.Auth.Login.LoginActivity;
+import pl.carrifyandroid.Utils.StorageHelper;
 
 public class SplashActivity extends AppCompatActivity {
 
     @Inject
     SplashManager splashManager;
-    @BindView(R.id.sendTestRequest)
-    Button sendTestRequest;
+    @Inject
+    StorageHelper storageHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,15 +33,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
         App.component.inject(this);
-        splashManager.test("test");
-    }
-
-    @OnClick({R.id.sendTestRequest})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.sendTestRequest:
-                splashManager.test("sendTestRequest");
-        }
+        splashManager.checkValidation(storageHelper.getString("token"));
     }
 
     @Override
@@ -53,7 +48,16 @@ public class SplashActivity extends AppCompatActivity {
         splashManager.onStop();
     }
 
-    public void showToast(TestUser body) {
-        Toast.makeText(this, body.getSurname(), Toast.LENGTH_SHORT).show();
+    public void showErrorResponse() {
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        startActivity(loginIntent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    public void progressResponse(Integer body) {
+        storageHelper.setInteger("userId", body);
+        Intent mainIntent = new Intent(this, MainActivity.class);
+        startActivity(mainIntent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

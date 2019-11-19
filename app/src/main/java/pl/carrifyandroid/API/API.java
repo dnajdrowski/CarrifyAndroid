@@ -1,14 +1,15 @@
 package pl.carrifyandroid.API;
 
-import pl.carrifyandroid.Models.TestUser;
+import pl.carrifyandroid.API.ApiModels.AuthRequest;
+import pl.carrifyandroid.API.ApiModels.JwtVerifyTokenRequest;
 import retrofit2.Call;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Body;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface API {
 
-    String url = "http://127.0.0.1:8080/api/";
+    String url = "https://carrify.herokuapp.com/";
 
     /**
      * POST
@@ -16,9 +17,19 @@ public interface API {
      *
      * @return
      */
-    @FormUrlEncoded
-    @POST("hello")
-    Call<TestUser> testMethod(
-            @Field("name") String name);
+    @POST("auth/verifyToken")
+    Call<Integer> verifyToken(
+            @Body JwtVerifyTokenRequest jwtVerifyTokenRequest,
+            @Header("Authorization") String token);
+
+    /**
+     * POST
+     * EXAMPLE
+     *
+     * @return
+     */
+    @POST("auth")
+    Call<AuthRequest> loginRequest(
+            @Body AuthRequest authRequest);
 
 }

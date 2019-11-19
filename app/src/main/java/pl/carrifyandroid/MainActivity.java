@@ -21,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        App.component.inject(MainActivity.this);
-        storageHelper.setBool("hello", true);
-        Timber.d("onCreate: %s", storageHelper.getBool("hello"));
+        App.component.inject(this);
     }
 }
