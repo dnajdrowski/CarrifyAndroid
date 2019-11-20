@@ -19,8 +19,10 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import pl.carrifyandroid.API.ApiModels.AuthRequest;
 import pl.carrifyandroid.App;
+import pl.carrifyandroid.MainActivity;
 import pl.carrifyandroid.R;
 import pl.carrifyandroid.Screens.Auth.Register.RegisterActivity;
+import pl.carrifyandroid.Utils.StorageHelper;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -29,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
 
     @Inject
     LoginManager loginManager;
+    @Inject
+    StorageHelper storageHelper;
 
     @BindView(R.id.loginPassword)
     EditText loginPassword;
@@ -55,23 +59,22 @@ public class LoginActivity extends AppCompatActivity {
             case R.id.loginButton:
                 switch (action) {
                     case "H421sCa":
-                        if (loginPhone.getText().toString().length() != 9) {
-                            Toast.makeText(this, "Number must contain 9 digits!", LENGTH_SHORT).show();
+                        if (loginPhone.getText().toString().length() == 0) {
+                            Toast.makeText(this, getString(R.string.wrong_phone_number), LENGTH_SHORT).show();
                             return;
                         }
                         phoneNumber = loginPhone.getText().toString();
                         break;
                     case "Po23cVe":
-                        if (loginPassword.getText().toString().length() < 3) {
-                            Toast.makeText(this, "Password must contain atleast 3 letters or digits!", LENGTH_SHORT).show();
+                        if (loginPassword.getText().toString().length() == 0) {
+                            Toast.makeText(this, getString(R.string.wrong_password), LENGTH_SHORT).show();
                             return;
                         }
                         password = loginPassword.getText().toString();
                         break;
                     case "WE3ceg6":
-                        break;
+                        return;
                 }
-
                 loginManager.loginRequest(action, password, personalNumber, email, phoneNumber);
                 break;
         }
@@ -115,14 +118,26 @@ public class LoginActivity extends AppCompatActivity {
         switch (action) {
             case "Po23cVe":
                 loginPassword.setVisibility(View.VISIBLE);
+                loginPhone.setEnabled(false);
+                Toast.makeText(this, getString(R.string.phone_success), LENGTH_SHORT).show();
                 break;
             case "WE3ceg6":
                 Intent registerIntent = new Intent(this, RegisterActivity.class);
                 registerIntent.putExtra("phoneNumber", phoneNumber);
                 startActivity(registerIntent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                break;
+            case "a7Cg8xc":
+                if (authRequest.getToken() != null)
+                    storageHelper.setString("token", authRequest.getToken());
+                if (authRequest.getUserId() != null)
+                    storageHelper.setString("userId", authRequest.getUserId());
+                Toast.makeText(this, getString(R.string.login_success), LENGTH_SHORT).show();
+                Intent mainIntent = new Intent(this, MainActivity.class);
+                startActivity(mainIntent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
         }
-        Toast.makeText(this, authRequest.getAction(), LENGTH_SHORT).show();
     }
 
     public void showErrorResponse(String messageFromErrorBody) {

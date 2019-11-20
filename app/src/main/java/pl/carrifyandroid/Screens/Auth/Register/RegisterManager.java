@@ -8,7 +8,6 @@ import javax.inject.Inject;
 
 import pl.carrifyandroid.API.API;
 import pl.carrifyandroid.API.ApiModels.AuthRequest;
-import pl.carrifyandroid.API.ApiModels.JwtVerifyTokenRequest;
 import pl.carrifyandroid.Utils.ErrorHandler;
 import pl.carrifyandroid.Utils.StorageHelper;
 import retrofit2.Call;
@@ -43,7 +42,27 @@ public class RegisterManager {
             public void onResponse(@NonNull Call<AuthRequest> call, @NotNull Response<AuthRequest> response) {
                 if (registerActivity != null)
                     if (response.isSuccessful()) {
-                        registerActivity.performAction(response.body());
+                        registerActivity.performRegisterAction(response.body());
+                    } else
+                        registerActivity.showErrorResponse(ErrorHandler.getMessageFromErrorBody(response.errorBody()));
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<AuthRequest> call, @NonNull Throwable t) {
+                Timber.d("Carrify Splash Manager %s", t.getLocalizedMessage());
+            }
+
+        });
+    }
+
+    void loginRequest(String action, String password, String personalNumber, String email, String phone) {
+        Call<AuthRequest> call = api.loginRequest(new AuthRequest(action, password, personalNumber, email, phone));
+        call.enqueue(new Callback<AuthRequest>() {
+            @Override
+            public void onResponse(@NonNull Call<AuthRequest> call, @NotNull Response<AuthRequest> response) {
+                if (registerActivity != null)
+                    if (response.isSuccessful()) {
+                        registerActivity.performLoginAction(response.body());
                     } else
                         registerActivity.showErrorResponse(ErrorHandler.getMessageFromErrorBody(response.errorBody()));
             }

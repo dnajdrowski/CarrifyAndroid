@@ -10,4 +10,11 @@
     <string name="email_address">E-mail address</string>
     <string name="personal_number">Personal number</string>
     <string name="register">Register</string>
+    <string name="wrong_phone_number">Wrong phone number!</string>
+    <string name="wrong_personal_number">Wrong personal number!</string>
+    <string name="wrong_email_address">Wrong email address!</string>
+    <string name="wrong_password">Wrong password!</string>
+    <string name="phone_success">We got it! Now please enter your password!</string>
+    <string name="login_success">Login Successful!</string>
+    <string name="register_success">Register successful! You will be moved to the Application!</string>
 </resources>

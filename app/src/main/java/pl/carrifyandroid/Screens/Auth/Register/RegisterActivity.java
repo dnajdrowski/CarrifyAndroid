@@ -1,5 +1,6 @@
 package pl.carrifyandroid.Screens.Auth.Register;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +17,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pl.carrifyandroid.API.ApiModels.AuthRequest;
 import pl.carrifyandroid.App;
+import pl.carrifyandroid.MainActivity;
 import pl.carrifyandroid.R;
+import pl.carrifyandroid.Utils.StorageHelper;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -35,8 +38,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Inject
     RegisterManager registerManager;
+    @Inject
+    StorageHelper storageHelper;
 
-    private String action = "WE3ceg6";
     private String password = "";
     private String email = "";
     private String personalNumber = "";
@@ -48,8 +52,10 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
         App.component.inject(this);
-        if (getIntent() != null)
+        if (getIntent() != null) {
             registerPhoneNumber.setText(getIntent().getStringExtra("phoneNumber"));
+            registerPhoneNumber.setEnabled(false);
+        }
     }
 
     @Override
@@ -60,28 +66,29 @@ public class RegisterActivity extends AppCompatActivity {
 
     @OnClick({R.id.registerButton})
     public void onViewClicked(View view) {
+        String action = "WE3ceg6";
         switch (view.getId()) {
             case R.id.registerButton:
                 if (registerPhoneNumber.getText().toString().length() == 0) {
-                    Toast.makeText(this, "Wrong phone number!", LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.wrong_phone_number), LENGTH_SHORT).show();
                     return;
                 }
                 phoneNumber = registerPhoneNumber.getText().toString();
 
                 if (registerPersonalNumber.getText().toString().length() == 0) {
-                    Toast.makeText(this, "Wrong personal number!", LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.personal_number), LENGTH_SHORT).show();
                     return;
                 }
                 personalNumber = registerPersonalNumber.getText().toString();
 
                 if (registerEmail.getText().toString().length() == 0) {
-                    Toast.makeText(this, "Wrong email address!", LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.wrong_email_address), LENGTH_SHORT).show();
                     return;
                 }
                 email = registerEmail.getText().toString();
 
                 if (registerPassword.getText().toString().length() == 0) {
-                    Toast.makeText(this, "Wrong password!", LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.wrong_password), LENGTH_SHORT).show();
                     return;
                 }
                 password = registerPassword.getText().toString();
@@ -103,8 +110,21 @@ public class RegisterActivity extends AppCompatActivity {
         registerManager.onAttach(this);
     }
 
-    public void performAction(AuthRequest body) {
-        Toast.makeText(this, "WELCOME TO NEW USER", LENGTH_SHORT).show();
+    public void performRegisterAction(AuthRequest authRequest) {
+        Toast.makeText(this, getString(R.string.register_success), LENGTH_SHORT).show();
+        registerManager.loginRequest("Po23cVe", password, personalNumber, email, phoneNumber);
+    }
+
+    public void performLoginAction(AuthRequest authRequest) {
+        if ("a7Cg8xc".equals(authRequest.getAction())) {
+            if (authRequest.getToken() != null)
+                storageHelper.setString("token", authRequest.getToken());
+            if (authRequest.getUserId() != null)
+                storageHelper.setString("userId", authRequest.getUserId());
+            Intent mainIntent = new Intent(this, MainActivity.class);
+            startActivity(mainIntent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
     }
 
     public void showErrorResponse(String messageFromErrorBody) {

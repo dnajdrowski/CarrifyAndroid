@@ -7,6 +7,8 @@ public class AuthRequest {
     private String personalNumber;
     private String email;
     private String phone;
+    private String userId;
+    private String token;
 
     public AuthRequest(String action, String password, String personalNumber, String email, String phone) {
         this.action = action;
@@ -14,6 +16,32 @@ public class AuthRequest {
         this.personalNumber = personalNumber;
         this.email = email;
         this.phone = phone;
+    }
+
+    public AuthRequest(String action, String password, String personalNumber, String email, String phone, String userId, String token) {
+        this.action = action;
+        this.password = password;
+        this.personalNumber = personalNumber;
+        this.email = email;
+        this.phone = phone;
+        this.userId = userId;
+        this.token = token;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getAction() {
