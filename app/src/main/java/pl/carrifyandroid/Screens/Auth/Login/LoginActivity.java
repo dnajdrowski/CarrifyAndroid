@@ -2,6 +2,7 @@ package pl.carrifyandroid.Screens.Auth.Login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import javax.inject.Inject;
 
@@ -22,6 +24,7 @@ import pl.carrifyandroid.App;
 import pl.carrifyandroid.MainActivity;
 import pl.carrifyandroid.R;
 import pl.carrifyandroid.Screens.Auth.Register.RegisterActivity;
+import pl.carrifyandroid.Utils.KeyboardHider;
 import pl.carrifyandroid.Utils.StorageHelper;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -38,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText loginPassword;
     @BindView(R.id.loginPhone)
     EditText loginPhone;
+    @BindView(R.id.loginConstraintLayout)
+    ConstraintLayout loginConstraintLayout;
 
     private String action = "H421sCa";
     private String password = "";
@@ -51,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         App.component.inject(this);
+        KeyboardHider.setupUI(loginConstraintLayout, this);
     }
 
     @OnClick({R.id.loginButton})

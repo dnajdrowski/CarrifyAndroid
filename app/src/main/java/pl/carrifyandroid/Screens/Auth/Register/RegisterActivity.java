@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import javax.inject.Inject;
 
@@ -19,6 +20,7 @@ import pl.carrifyandroid.API.ApiModels.AuthRequest;
 import pl.carrifyandroid.App;
 import pl.carrifyandroid.MainActivity;
 import pl.carrifyandroid.R;
+import pl.carrifyandroid.Utils.KeyboardHider;
 import pl.carrifyandroid.Utils.StorageHelper;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -35,6 +37,8 @@ public class RegisterActivity extends AppCompatActivity {
     EditText registerPhoneNumber;
     @BindView(R.id.registerButton)
     Button registerButton;
+    @BindView(R.id.registerConstraintLayout)
+    ConstraintLayout registerConstraintLayout;
 
     @Inject
     RegisterManager registerManager;
@@ -56,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
             registerPhoneNumber.setText(getIntent().getStringExtra("phoneNumber"));
             registerPhoneNumber.setEnabled(false);
         }
+        KeyboardHider.setupUI(registerConstraintLayout, this);
     }
 
     @Override
