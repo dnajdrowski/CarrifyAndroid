@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Carrify</string>
+    <string name="login">Log in</string>
+    <string name="enter_phone_to_login">Enter your phone number and rent the first car!</string>
+    <string name="phone_number">Phone number</string>
+    <string name="sign_in">Sign in</string>
+    <string name="password">Password</string>
+    <string name="registration">Registration</string>
+    <string name="found_no_acc">It looks like you do not have an account, create one to use Carrify!</string>
+    <string name="email_address">E-mail address</string>
+    <string name="personal_number">Personal number</string>
+    <string name="register">Register</string>
 </resources>

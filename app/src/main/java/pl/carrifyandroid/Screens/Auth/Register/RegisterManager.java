@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.inject.Inject;
 
 import pl.carrifyandroid.API.API;
+import pl.carrifyandroid.API.ApiModels.AuthRequest;
 import pl.carrifyandroid.API.ApiModels.JwtVerifyTokenRequest;
 import pl.carrifyandroid.Utils.ErrorHandler;
 import pl.carrifyandroid.Utils.StorageHelper;
@@ -35,22 +36,20 @@ public class RegisterManager {
         this.registerActivity = null;
     }
 
-    void checkValidation(String token) {
-        Call<Integer> call = api.verifyToken(new JwtVerifyTokenRequest(token), "Bearer " + token);
-        call.enqueue(new Callback<Integer>() {
+    void registerRequest(String action, String password, String personalNumber, String email, String phone) {
+        Call<AuthRequest> call = api.loginRequest(new AuthRequest(action, password, personalNumber, email, phone));
+        call.enqueue(new Callback<AuthRequest>() {
             @Override
-            public void onResponse(@NonNull Call<Integer> call, @NotNull Response<Integer> response) {
+            public void onResponse(@NonNull Call<AuthRequest> call, @NotNull Response<AuthRequest> response) {
                 if (registerActivity != null)
                     if (response.isSuccessful()) {
-                        //registerActivity.progressResponse(response.body());
-                    } else {
-
-                    }
-                       // registerActivity.showErrorResponse(ErrorHandler.getMessageFromErrorBody(response.errorBody()));
+                        registerActivity.performAction(response.body());
+                    } else
+                        registerActivity.showErrorResponse(ErrorHandler.getMessageFromErrorBody(response.errorBody()));
             }
 
             @Override
-            public void onFailure(@NotNull Call<Integer> call, @NonNull Throwable t) {
+            public void onFailure(@NotNull Call<AuthRequest> call, @NonNull Throwable t) {
                 Timber.d("Carrify Splash Manager %s", t.getLocalizedMessage());
             }
 
