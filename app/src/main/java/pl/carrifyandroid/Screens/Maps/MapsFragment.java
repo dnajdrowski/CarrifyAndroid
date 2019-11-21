@@ -1,7 +1,9 @@
 package pl.carrifyandroid.Screens.Maps;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -33,6 +36,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
+import com.squareup.otto.Subscribe;
 
 import java.util.Objects;
 
@@ -41,6 +45,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import pl.carrifyandroid.App;
 import pl.carrifyandroid.Models.AttachMaps;
+import pl.carrifyandroid.Models.BusLocation;
 import pl.carrifyandroid.Models.ClusterMarker;
 import pl.carrifyandroid.R;
 import pl.carrifyandroid.Utils.EventBus;
@@ -66,6 +71,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
 
     private boolean canGetLocation = false;
     private boolean mapLoaded = false;
+    private boolean initMe = false;
 
     @Nullable
     @Override
@@ -84,7 +90,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         App.component.inject(this);
         new LocationUtils(Objects.requireNonNull(getActivity())).turnGPSOn(isGPSEnable -> {
-            canGetLocation = true;
         });
         EventBus.get().post(new AttachMaps(true));
         initCache();
@@ -110,7 +115,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         if (getActivity() != null) {
             if (mMap != null) {
                 mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPositionme));
-
             }
         }
 
@@ -139,6 +143,45 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         mClusterManager.setOnClusterItemInfoWindowClickListener(this);
 
         MapsInitializer.initialize(Objects.requireNonNull(getContext()).getApplicationContext());
+    }
+
+    @Subscribe
+    public void meLocation(BusLocation event) {
+        myLastLocation = myLocation;
+        myLocation = event.getLocation();
+
+        if (myLocation == null)
+            return;
+
+        if (ActivityCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        if (mMap != null) {
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        }
+
+        if (!initMe) {
+            LatLng latLngme;
+            if (myLocation == null) {
+                latLngme = new LatLng(54.406587, 18.594610);
+            } else {
+                latLngme = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+            }
+
+            CameraPosition cameraPositionme = new CameraPosition.Builder()
+                    .target(latLngme)             // Sets the center of the map to location user
+                    .zoom(10)                   // Sets the zoom
+                    .bearing(0)                // Sets the orientation of the camera to east
+                    .tilt(40)                   // Sets the tilt of the camera to 30 degrees
+                    .build();                   // Creates a CameraPosition from the builder
+
+            if (getActivity() != null) {
+                if (mMap != null)
+                    mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPositionme));
+                initMe = true;
+            }
+        }
     }
 
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorResId, int size) {
