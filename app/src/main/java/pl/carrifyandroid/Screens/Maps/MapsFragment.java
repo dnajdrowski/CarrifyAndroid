@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
@@ -33,11 +34,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.squareup.otto.Subscribe;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -46,11 +50,15 @@ import butterknife.ButterKnife;
 import pl.carrifyandroid.App;
 import pl.carrifyandroid.Models.AttachMaps;
 import pl.carrifyandroid.Models.BusLocation;
+import pl.carrifyandroid.Models.CarData;
 import pl.carrifyandroid.Models.ClusterMarker;
+import pl.carrifyandroid.Models.RegionZone;
+import pl.carrifyandroid.Models.RegionZoneCoords;
 import pl.carrifyandroid.R;
 import pl.carrifyandroid.Utils.EventBus;
 import pl.carrifyandroid.Utils.LocationUtils;
 import pl.carrifyandroid.Utils.StorageHelper;
+import timber.log.Timber;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback,
         ClusterManager.OnClusterClickListener<ClusterMarker>,
@@ -142,6 +150,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         mClusterManager.setOnClusterItemClickListener(this);
         mClusterManager.setOnClusterItemInfoWindowClickListener(this);
 
+        mapsManager.getRegionZones(1);
+        mapsManager.getCarsData();
+
         MapsInitializer.initialize(Objects.requireNonNull(getContext()).getApplicationContext());
     }
 
@@ -184,10 +195,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         }
     }
 
-    private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorResId, int size) {
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorResId, int sizeX, int sizeY) {
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
-        Objects.requireNonNull(vectorDrawable).setBounds(0, 0, size, size);
-        Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+        Objects.requireNonNull(vectorDrawable).setBounds(0, 0, sizeX, sizeY);
+        Bitmap bitmap = Bitmap.createBitmap(sizeX, sizeY, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
@@ -197,10 +208,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         cache = new LruCache<>((int) (Runtime.getRuntime().maxMemory() / 1024 / 8));
     }
 
-    private BitmapDescriptor getBitmapDescriptor(@DrawableRes int vectorResId, int size) {
+    private BitmapDescriptor getBitmapDescriptor(@DrawableRes int vectorResId, int sizeX, int sizeY) {
         BitmapDescriptor result = cache.get(vectorResId);
         if (result == null) {
-            result = bitmapDescriptorFromVector(getContext(), vectorResId, size);
+            result = bitmapDescriptorFromVector(getContext(), vectorResId, sizeX, sizeY);
             cache.put(vectorResId, result);
         }
         return result;
@@ -226,6 +237,36 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         super.onDestroy();
     }
 
+    void drawRegionZones(RegionZone regionZone) {
+        PolygonOptions polygonOptions = new PolygonOptions();
+        List<RegionZoneCoords> points = regionZone.getRegionZoneCoords();
+        for (RegionZoneCoords point : points) {
+            polygonOptions.add(new LatLng(point.getLatitude(), point.getLongitude()));
+        }
+        polygonOptions.strokeColor(Color.parseColor(regionZone.getStrokeColor()));
+        polygonOptions.strokeWidth(regionZone.getStrokeWidth());
+        polygonOptions.fillColor(Color.parseColor(regionZone.getZoneColor()));
+        Polygon polygon1 = mMap.addPolygon(polygonOptions);
+    }
+
+
+    void showList(List<CarData> carDataList) {
+        double[] latitudes = {54.388516, 54.391787, 54.398636, 54.410285, 54.406881, 54.354094, 54.404850};
+        double[] longitudes = {18.608693, 18.569518, 18.584784, 18.604735, 18.639024, 18.649922, 18.560947};
+        if (mClusterManager != null) {
+            mClusterManager.clearItems();
+            if (getActivity() != null) {
+                for (int i = 0; i < carDataList.size(); i++) {
+                    carDataList.get(i).setLatitude(latitudes[i]);
+                    carDataList.get(i).setLongitude(longitudes[i]);
+                    ClusterMarker item = new ClusterMarker(new LatLng(carDataList.get(i).getLatitude(), carDataList.get(i).getLongitude()), carDataList.get(i).getLastService(), carDataList.get(i).getLastSync(), carDataList.get(i).getCarState(), carDataList.get(i).getFuelLevel(), carDataList.get(i).getId(), carDataList.get(i).getMileage(), carDataList.get(i).getName(), carDataList.get(i).getRegistrationNumber(), carDataList.get(i).getServiceMode());
+                    mClusterManager.addItem(item);
+                }
+                mClusterManager.cluster();
+            }
+        }
+    }
+
     class MyClusterRenderer extends DefaultClusterRenderer<ClusterMarker> {
         MyClusterRenderer(Context context, GoogleMap map,
                           ClusterManager<ClusterMarker> clusterManager) {
@@ -240,7 +281,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
 
             int icon = Objects.requireNonNull(getActivity()).getResources().getIdentifier("car_icon", "drawable", getActivity().getPackageName());
 
-            markerOptions.icon(getBitmapDescriptor(icon, 120));
+            markerOptions.icon(getBitmapDescriptor(icon, 120, 45));
 
         }
 
@@ -301,6 +342,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         protected boolean shouldRenderAsCluster(Cluster<ClusterMarker> cluster) {
             return cluster.getSize() > 999;
         }
+
     }
 
 

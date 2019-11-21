@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.material.navigation.NavigationView;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         navUsername = headerView.findViewById(R.id.username);
         //avatar
         avatar = headerView.findViewById(R.id.avatar);
+        Glide.with(MainActivity.this).load(R.drawable.car_avatar).circleCrop().into(avatar);
         loopLocalization();
 
         MapsInitializer.initialize(getApplicationContext());
