@@ -1,0 +1,906 @@
+[
+  {
+    "country": "Afganistan",
+    "code": 93
+  },
+  {
+    "country": "Albania",
+    "code": 355
+  },
+  {
+    "country": "Algeria",
+    "code": 213
+  },
+  {
+    "country": "Andora",
+    "code": 376
+  },
+  {
+    "country": "Angola",
+    "code": 244
+  },
+  {
+    "country": "Anguilla",
+    "code": 1264
+  },
+  {
+    "country": "Antigua i Barbuda",
+    "code": 1268
+  },
+  {
+    "country": "Antyle Holenderskie",
+    "code": 599
+  },
+  {
+    "country": "Arabia Saudyjska",
+    "code": 966
+  },
+  {
+    "country": "Argentyna",
+    "code": 54
+  },
+  {
+    "country": "Armenia",
+    "code": 374
+  },
+  {
+    "country": "Aruba",
+    "code": 297
+  },
+  {
+    "country": "Australia",
+    "code": 61
+  },
+  {
+    "country": "Austria",
+    "code": 43
+  },
+  {
+    "country": "Azerbejdżan",
+    "code": 994
+  },
+  {
+    "country": "Bahama",
+    "code": 1242
+  },
+  {
+    "country": "Bahrajn",
+    "code": 973
+  },
+  {
+    "country": "Bangladesz",
+    "code": 880
+  },
+  {
+    "country": "Barbados",
+    "code": 1246
+  },
+  {
+    "country": "Belau",
+    "code": 680
+  },
+  {
+    "country": "Belgia",
+    "code": 32
+  },
+  {
+    "country": "Belize",
+    "code": 501
+  },
+  {
+    "country": "Benin",
+    "code": 229
+  },
+  {
+    "country": "Bermudy",
+    "code": 1441
+  },
+  {
+    "country": "Bhutan",
+    "code": 975
+  },
+  {
+    "country": "Białoruś",
+    "code": 375
+  },
+  {
+    "country": "Boliwia",
+    "code": 591
+  },
+  {
+    "country": "Bostwana",
+    "code": 267
+  },
+  {
+    "country": "Bośnia i Hercegowina",
+    "code": 387
+  },
+  {
+    "country": "Brazylia",
+    "code": 55
+  },
+  {
+    "country": "Brunei",
+    "code": 673
+  },
+  {
+    "country": "Bułgaria",
+    "code": 359
+  },
+  {
+    "country": "Burkina Faso",
+    "code": 226
+  },
+  {
+    "country": "Burundi",
+    "code": 257
+  },
+  {
+    "country": "Chile",
+    "code": 56
+  },
+  {
+    "country": "Chiny",
+    "code": 86
+  },
+  {
+    "country": "Chorwacja",
+    "code": 385
+  },
+  {
+    "country": "Cooka w-py",
+    "code": 682
+  },
+  {
+    "country": "Cypr",
+    "code": 357
+  },
+  {
+    "country": "Czad",
+    "code": 235
+  },
+  {
+    "country": "Czechy",
+    "code": 420
+  },
+  {
+    "country": "Dania",
+    "code": 45
+  },
+  {
+    "country": "Diego Garcia",
+    "code": 246
+  },
+  {
+    "country": "Dominika",
+    "code": 1767
+  },
+  {
+    "country": "Dominikana",
+    "code": 1809
+  },
+  {
+    "country": "Dziewicze Wyspy Brytyjskie",
+    "code": 1284
+  },
+  {
+    "country": "Dziewicze Wyspy Stanów Zjednoczonych",
+    "code": 1340
+  },
+  {
+    "country": "Dżibuti",
+    "code": 253
+  },
+  {
+    "country": "Egipt",
+    "code": 20
+  },
+  {
+    "country": "Ekwador",
+    "code": 593
+  },
+  {
+    "country": "Erytrea",
+    "code": 291
+  },
+  {
+    "country": "Estonia",
+    "code": 372
+  },
+  {
+    "country": "Etiopia",
+    "code": 251
+  },
+  {
+    "country": "Falklandy",
+    "code": 500
+  },
+  {
+    "country": "Fidżi",
+    "code": 679
+  },
+  {
+    "country": "Filipiny",
+    "code": 63
+  },
+  {
+    "country": "Finlandia",
+    "code": 358
+  },
+  {
+    "country": "Francja",
+    "code": 33
+  },
+  {
+    "country": "Gabon",
+    "code": 241
+  },
+  {
+    "country": "Gambia",
+    "code": 220
+  },
+  {
+    "country": "Ghana",
+    "code": 233
+  },
+  {
+    "country": "Gibraltar",
+    "code": 350
+  },
+  {
+    "country": "Grecja",
+    "code": 30
+  },
+  {
+    "country": "Grenlandia",
+    "code": 299
+  },
+  {
+    "country": "Gruzja",
+    "code": 995
+  },
+  {
+    "country": "Guam",
+    "code": 1671
+  },
+  {
+    "country": "Gujana",
+    "code": 592
+  },
+  {
+    "country": "Gujana Francuska",
+    "code": 594
+  },
+  {
+    "country": "Gwadelupa",
+    "code": 590
+  },
+  {
+    "country": "Gwatemala",
+    "code": 502
+  },
+  {
+    "country": "Gwinea",
+    "code": 224
+  },
+  {
+    "country": "Gwinea Bissau",
+    "code": 245
+  },
+  {
+    "country": "Gwinea Równikowa",
+    "code": 240
+  },
+  {
+    "country": "Haiti",
+    "code": 509
+  },
+  {
+    "country": "Hiszpania",
+    "code": 34
+  },
+  {
+    "country": "Holandia",
+    "code": 31
+  },
+  {
+    "country": "Honduras",
+    "code": 504
+  },
+  {
+    "country": "Hongkong",
+    "code": 852
+  },
+  {
+    "country": "Indie",
+    "code": 91
+  },
+  {
+    "country": "Indonezja",
+    "code": 62
+  },
+  {
+    "country": "Irak",
+    "code": 964
+  },
+  {
+    "country": "Iran",
+    "code": 98
+  },
+  {
+    "country": "Irlandia",
+    "code": 353
+  },
+  {
+    "country": "Islandia",
+    "code": 354
+  },
+  {
+    "country": "Izrael",
+    "code": 972
+  },
+  {
+    "country": "Jamajka",
+    "code": 1876
+  },
+  {
+    "country": "Japonia",
+    "code": 81
+  },
+  {
+    "country": "Jemen",
+    "code": 967
+  },
+  {
+    "country": "Jordania",
+    "code": 962
+  },
+  {
+    "country": "Kajmany",
+    "code": 1345
+  },
+  {
+    "country": "Kambodża",
+    "code": 855
+  },
+  {
+    "country": "Kamerun",
+    "code": 237
+  },
+  {
+    "country": "Kanada",
+    "code": 1
+  },
+  {
+    "country": "Kanaryjskie Wyspy",
+    "code": 34
+  },
+  {
+    "country": "Katar",
+    "code": 974
+  },
+  {
+    "country": "Kazachstan",
+    "code": 7
+  },
+  {
+    "country": "Kenia",
+    "code": 254
+  },
+  {
+    "country": "Kirgistan",
+    "code": 996
+  },
+  {
+    "country": "Kiribati",
+    "code": 686
+  },
+  {
+    "country": "Kolumbia",
+    "code": 57
+  },
+  {
+    "country": "Komory",
+    "code": 269
+  },
+  {
+    "country": "Kongo",
+    "code": 242
+  },
+  {
+    "country": "Kongo R.D. (Zair)",
+    "code": 243
+  },
+  {
+    "country": "Korea Południowa",
+    "code": 82
+  },
+  {
+    "country": "Koreańska R.L.D.",
+    "code": 850
+  },
+  {
+    "country": "Kostaryka",
+    "code": 506
+  },
+  {
+    "country": "Kuba",
+    "code": 53
+  },
+  {
+    "country": "Kuwejt",
+    "code": 965
+  },
+  {
+    "country": "Laos",
+    "code": 856
+  },
+  {
+    "country": "Lesotho",
+    "code": 266
+  },
+  {
+    "country": "Liban",
+    "code": 961
+  },
+  {
+    "country": "Liberia",
+    "code": 231
+  },
+  {
+    "country": "Libia",
+    "code": 218
+  },
+  {
+    "country": "Lichtenstein",
+    "code": 4175
+  },
+  {
+    "country": "Litwa",
+    "code": 370
+  },
+  {
+    "country": "Luksemburg",
+    "code": 352
+  },
+  {
+    "country": "Łotwa",
+    "code": 371
+  },
+  {
+    "country": "Macedonia",
+    "code": 389
+  },
+  {
+    "country": "Madagaskar",
+    "code": 261
+  },
+  {
+    "country": "Makau",
+    "code": 853
+  },
+  {
+    "country": "Malawi",
+    "code": 265
+  },
+  {
+    "country": "Malediwy",
+    "code": 960
+  },
+  {
+    "country": "Malezja",
+    "code": 60
+  },
+  {
+    "country": "Mali",
+    "code": 223
+  },
+  {
+    "country": "Malta",
+    "code": 356
+  },
+  {
+    "country": "Mariany (Saipan)",
+    "code": 1670
+  },
+  {
+    "country": "Maroko",
+    "code": 212
+  },
+  {
+    "country": "Marshalla Wyspy",
+    "code": 692
+  },
+  {
+    "country": "Martynika",
+    "code": 596
+  },
+  {
+    "country": "Mauretania",
+    "code": 222
+  },
+  {
+    "country": "Mauritius",
+    "code": 230
+  },
+  {
+    "country": "Meksyk",
+    "code": 52
+  },
+  {
+    "country": "Mianmar (Birma)",
+    "code": 95
+  },
+  {
+    "country": "Mikronezja",
+    "code": 691
+  },
+  {
+    "country": "Mołdawia",
+    "code": 373
+  },
+  {
+    "country": "Monako",
+    "code": 377
+  },
+  {
+    "country": "Mongolia",
+    "code": 976
+  },
+  {
+    "country": "Monserrat",
+    "code": 1664
+  },
+  {
+    "country": "Mozambik",
+    "code": 258
+  },
+  {
+    "country": "Namibia",
+    "code": 264
+  },
+  {
+    "country": "Nauru",
+    "code": 674
+  },
+  {
+    "country": "Nepal",
+    "code": 977
+  },
+  {
+    "country": "Niemcy",
+    "code": 49
+  },
+  {
+    "country": "Niger",
+    "code": 227
+  },
+  {
+    "country": "Nigeria",
+    "code": 234
+  },
+  {
+    "country": "Nikaragua",
+    "code": 505
+  },
+  {
+    "country": "Niue",
+    "code": 683
+  },
+  {
+    "country": "Norfolk Wyspa",
+    "code": 672
+  },
+  {
+    "country": "Norwegia",
+    "code": 47
+  },
+  {
+    "country": "Nowa Kaledonia",
+    "code": 687
+  },
+  {
+    "country": "Newa Zelandia",
+    "code": 64
+  },
+  {
+    "country": "Oman",
+    "code": 968
+  },
+  {
+    "country": "Owcze Wyspy",
+    "code": 298
+  },
+  {
+    "country": "Pakistan",
+    "code": 92
+  },
+  {
+    "country": "Panama",
+    "code": 507
+  },
+  {
+    "country": "Papua Nowa Gwinea",
+    "code": 675
+  },
+  {
+    "country": "Paragwaj",
+    "code": 595
+  },
+  {
+    "country": "Peru",
+    "code": 51
+  },
+  {
+    "country": "Polinezja Francuska",
+    "code": 689
+  },
+  {
+    "country": "Polska",
+    "code": 48
+  },
+  {
+    "country": "Portugalia",
+    "code": 351
+  },
+  {
+    "country": "Puerto Rico",
+    "code": 1787
+  },
+  {
+    "country": "Republika Południowej Afryki",
+    "code": 27
+  },
+  {
+    "country": "Republika Środkowoafrykańska",
+    "code": 236
+  },
+  {
+    "country": "Reunion",
+    "code": 262
+  },
+  {
+    "country": "Rosja",
+    "code": 7
+  },
+  {
+    "country": "Rumunia",
+    "code": 40
+  },
+  {
+    "country": "Rwanda",
+    "code": 250
+  },
+  {
+    "country": "Saint Christopher i Nevis",
+    "code": 1869
+  },
+  {
+    "country": "Saint Lucia",
+    "code": 1758
+  },
+  {
+    "country": "Saint Vincent",
+    "code": 1809
+  },
+  {
+    "country": "Salomona Wyspy",
+    "code": 677
+  },
+  {
+    "country": "Salwador",
+    "code": 503
+  },
+  {
+    "country": "Samoa",
+    "code": 684
+  },
+  {
+    "country": "Samoa Zachodnie",
+    "code": 685
+  },
+  {
+    "country": "San Marino",
+    "code": 378
+  },
+  {
+    "country": "Senegal",
+    "code": 221
+  },
+  {
+    "country": "Seszele",
+    "code": 248
+  },
+  {
+    "country": "Sierra Leone",
+    "code": 232
+  },
+  {
+    "country": "Singapur",
+    "code": 65
+  },
+  {
+    "country": "Słowacja",
+    "code": 421
+  },
+  {
+    "country": "Słowenia",
+    "code": 386
+  },
+  {
+    "country": "Somalia",
+    "code": 252
+  },
+  {
+    "country": "Sri Lanka",
+    "code": 94
+  },
+  {
+    "country": "Stany Zjednoczone Ameryki",
+    "code": 1
+  },
+  {
+    "country": "Suazi",
+    "code": 268
+  },
+  {
+    "country": "Sudan",
+    "code": 249
+  },
+  {
+    "country": "Surinam",
+    "code": 597
+  },
+  {
+    "country": "Syria",
+    "code": 963
+  },
+  {
+    "country": "Szwajcaria",
+    "code": 41
+  },
+  {
+    "country": "Szwecja",
+    "code": 46
+  },
+  {
+    "country": "Św. Heleny Wyspa",
+    "code": 290
+  },
+  {
+    "country": "Św. Piotra i Mikeleona Wyspy",
+    "code": 508
+  },
+  {
+    "country": "Św. Tomasza Wyspy",
+    "code": 239
+  },
+  {
+    "country": "Tadżykistan",
+    "code": 7
+  },
+  {
+    "country": "Tajlandia",
+    "code": 66
+  },
+  {
+    "country": "Tajwan",
+    "code": 886
+  },
+  {
+    "country": "Tanzania",
+    "code": 255
+  },
+  {
+    "country": "Togo",
+    "code": 228
+  },
+  {
+    "country": "Tokelau",
+    "code": 690
+  },
+  {
+    "country": "Tonga",
+    "code": 616
+  },
+  {
+    "country": "Trynidad i Tobago",
+    "code": 1868
+  },
+  {
+    "country": "Tunezja",
+    "code": 216
+  },
+  {
+    "country": "Turcja",
+    "code": 90
+  },
+  {
+    "country": "Turkmenistan",
+    "code": 993
+  },
+  {
+    "country": "Turkis Caicos?(wyspy)",
+    "code": 1649
+  },
+  {
+    "country": "Tuvalu",
+    "code": 688
+  },
+  {
+    "country": "Uganda",
+    "code": 256
+  },
+  {
+    "country": "Ukraina",
+    "code": 380
+  },
+  {
+    "country": "Urugwaj",
+    "code": 598
+  },
+  {
+    "country": "Uzbekistan",
+    "code": 7
+  },
+  {
+    "country": "Vanuatu",
+    "code": 678
+  },
+  {
+    "country": "Walia",
+    "code": 681
+  },
+  {
+    "country": "Watykan",
+    "code": 396
+  },
+  {
+    "country": "Wenezuela",
+    "code": 58
+  },
+  {
+    "country": "Węgry",
+    "code": 36
+  },
+  {
+    "country": "Wielka Brytania",
+    "code": 44
+  },
+  {
+    "country": "Wietnam",
+    "code": 84
+  },
+  {
+    "country": "Włochy",
+    "code": 39
+  },
+  {
+    "country": "Wniebowstąpienia Wyspy",
+    "code": 247
+  },
+  {
+    "country": "Wybrzeże Kości Słoniowej",
+    "code": 225
+  },
+  {
+    "country": "Jamusukro",
+    "code": 225
+  },
+  {
+    "country": "Zambia",
+    "code": 260
+  },
+  {
+    "country": "Zanzibar",
+    "code": 259
+  },
+  {
+    "country": "Zinbabwe",
+    "code": 263
+  },
+  {
+    "country": "Zjednoczone Emiraty Arabskie",
+    "code": 971
+  }
+]
