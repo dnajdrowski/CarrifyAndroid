@@ -36,8 +36,8 @@
         android:layout_height="0dp"
         android:fontFamily="@font/nineteenth"
         android:gravity="center"
-        android:text="@string/registration"
         android:textSize="36sp"
+        android:text="@string/registration"
         app:layout_constraintBottom_toTopOf="@+id/guideline_h35"
         app:layout_constraintEnd_toStartOf="@+id/guideline_v80"
         app:layout_constraintStart_toStartOf="@+id/guideline_v20"
@@ -80,7 +80,6 @@
         app:boxCornerRadiusBottomStart="5dp"
         app:boxCornerRadiusTopEnd="5dp"
         app:boxCornerRadiusTopStart="5dp"
-        android:layout_marginTop="25dp"
         app:boxStrokeColor="@color/colorPrimary"
         app:boxStrokeWidth="2dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline_v80"
@@ -108,7 +107,6 @@
         app:boxCornerRadiusTopEnd="5dp"
         app:boxCornerRadiusTopStart="5dp"
         app:boxStrokeColor="@color/colorPrimary"
-        android:layout_marginTop="25dp"
         app:boxStrokeWidth="2dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline_v80"
         app:layout_constraintStart_toStartOf="@+id/guideline_v20"
@@ -128,6 +126,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:hint="@string/password"
         android:visibility="visible"
         app:boxCornerRadiusBottomEnd="5dp"
@@ -135,10 +134,7 @@
         app:boxCornerRadiusTopEnd="5dp"
         app:boxCornerRadiusTopStart="5dp"
         app:boxStrokeColor="@color/colorPrimary"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="10dp"
         app:boxStrokeWidth="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_h89"
         app:layout_constraintEnd_toStartOf="@+id/guideline_v80"
         app:layout_constraintStart_toStartOf="@+id/guideline_v20"
         app:layout_constraintTop_toBottomOf="@+id/registerEmailLayout">
@@ -157,17 +153,18 @@
         android:id="@+id/registerButton"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:fontFamily="@font/nineteenth"
         android:gravity="center"
         android:text="@string/register"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="21sp"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_h96"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline_v80"
         app:layout_constraintStart_toStartOf="@+id/guideline_v20"
-        app:layout_constraintTop_toTopOf="@+id/guideline_h89" />
+        app:layout_constraintTop_toBottomOf="@+id/registerPasswordLayout"
+        app:layout_constraintVertical_bias="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_h05"
@@ -217,20 +214,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.45" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_h89"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.89" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_h96"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.96" />
 
 
     <androidx.constraintlayout.widget.Guideline

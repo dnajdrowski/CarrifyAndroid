@@ -82,11 +82,9 @@
         app:boxCornerRadiusBottomEnd="5dp"
         app:boxCornerRadiusBottomStart="5dp"
         app:boxCornerRadiusTopEnd="5dp"
-        android:layout_marginTop="25dp"
         app:boxCornerRadiusTopStart="5dp"
         app:boxStrokeColor="@color/colorPrimary"
         app:boxStrokeWidth="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_h76"
         app:layout_constraintEnd_toStartOf="@+id/guideline_v80"
         app:layout_constraintStart_toStartOf="@+id/guideline_v20"
         app:layout_constraintTop_toBottomOf="@+id/loginPhoneLayout">
@@ -104,7 +102,7 @@
         android:id="@+id/loginButton"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:fontFamily="@font/nineteenth"
         android:gravity="center"
@@ -112,10 +110,11 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="21sp"
         app:cornerRadius="5dp"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_h83"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline_v80"
         app:layout_constraintStart_toStartOf="@+id/guideline_v20"
-        app:layout_constraintTop_toTopOf="@+id/guideline_h76" />
+        app:layout_constraintTop_toBottomOf="@+id/loginPasswordLayout"
+        app:layout_constraintVertical_bias="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_h05"
@@ -173,19 +172,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_h76"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.76" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_h83"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.83" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_v20"
