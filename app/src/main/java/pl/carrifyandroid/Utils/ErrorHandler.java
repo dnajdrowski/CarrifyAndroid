@@ -17,7 +17,7 @@ public class ErrorHandler {
                 apiErrorResponse = new Gson().fromJson(responseBody.string(), ApiErrorResponse.class);
                 Timber.d(responseBody.string());
             } catch (IOException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         return apiErrorResponse.getMsg();
     }

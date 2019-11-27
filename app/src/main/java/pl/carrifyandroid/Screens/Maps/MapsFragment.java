@@ -50,7 +50,7 @@ import butterknife.ButterKnife;
 import pl.carrifyandroid.App;
 import pl.carrifyandroid.Models.AttachMaps;
 import pl.carrifyandroid.Models.BusLocation;
-import pl.carrifyandroid.Models.CarData;
+import pl.carrifyandroid.Models.Car;
 import pl.carrifyandroid.Models.ClusterMarker;
 import pl.carrifyandroid.Models.RegionZone;
 import pl.carrifyandroid.Models.RegionZoneCoords;
@@ -99,7 +99,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         App.component.inject(this);
         new LocationUtils(Objects.requireNonNull(getActivity())).turnGPSOn(isGPSEnable -> {
         });
-        EventBus.get().post(new AttachMaps(true));
+        EventBus.getBus().post(new AttachMaps(true));
         initCache();
     }
 
@@ -111,10 +111,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
                 MapStyleOptions.loadRawResourceStyle(
                         Objects.requireNonNull(getActivity()), R.raw.style2));
 
-        LatLng latLngme = new LatLng(54.406587, 18.594610);
+        LatLng latLngMe = new LatLng(54.406587, 18.594610);
 
-        CameraPosition cameraPositionme = new CameraPosition.Builder()
-                .target(latLngme)             // Sets the center of the map to location user
+        CameraPosition cameraPositionMe = new CameraPosition.Builder()
+                .target(latLngMe)            // Sets the center of the map to location user
                 .zoom(14)                   // Sets the zoom
                 .bearing(0)                // Sets the orientation of the camera to east
                 .tilt(40)                   // Sets the tilt of the camera to 30 degrees
@@ -122,7 +122,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
 
         if (getActivity() != null) {
             if (mMap != null) {
-                mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPositionme));
+                mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPositionMe));
             }
         }
 
@@ -164,7 +164,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         if (myLocation == null)
             return;
 
-        if (ActivityCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(Objects.requireNonNull(getContext()),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         if (mMap != null) {
@@ -173,15 +175,15 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         }
 
         if (!initMe) {
-            LatLng latLngme;
+            LatLng latLngMe;
             if (myLocation == null) {
-                latLngme = new LatLng(54.406587, 18.594610);
+                latLngMe = new LatLng(54.406587, 18.594610);
             } else {
-                latLngme = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+                latLngMe = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
             }
 
             CameraPosition cameraPositionme = new CameraPosition.Builder()
-                    .target(latLngme)             // Sets the center of the map to location user
+                    .target(latLngMe)             // Sets the center of the map to location user
                     .zoom(10)                   // Sets the zoom
                     .bearing(0)                // Sets the orientation of the camera to east
                     .tilt(40)                   // Sets the tilt of the camera to 30 degrees
@@ -221,19 +223,19 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
     public void onResume() {
         super.onResume();
         mapsManager.onAttach(this);
-        EventBus.get().register(this);
+        EventBus.getBus().register(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mapsManager.onStop();
-        EventBus.get().unregister(this);
+        EventBus.getBus().unregister(this);
     }
 
     @Override
     public void onDestroy() {
-        EventBus.get().post(new AttachMaps(false));
+        EventBus.getBus().post(new AttachMaps(false));
         super.onDestroy();
     }
 
@@ -250,16 +252,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
     }
 
 
-    void showList(List<CarData> carDataList) {
-        double[] latitudes = {54.388516, 54.391787, 54.398636, 54.410285, 54.406881, 54.354094, 54.404850};
-        double[] longitudes = {18.608693, 18.569518, 18.584784, 18.604735, 18.639024, 18.649922, 18.560947};
+    void showCarsOnMap(List<Car> cars) {
         if (mClusterManager != null) {
             mClusterManager.clearItems();
             if (getActivity() != null) {
-                for (int i = 0; i < carDataList.size(); i++) {
-                    carDataList.get(i).setLatitude(latitudes[i]);
-                    carDataList.get(i).setLongitude(longitudes[i]);
-                    ClusterMarker item = new ClusterMarker(new LatLng(carDataList.get(i).getLatitude(), carDataList.get(i).getLongitude()), carDataList.get(i).getLastService(), carDataList.get(i).getLastSync(), carDataList.get(i).getCarState(), carDataList.get(i).getFuelLevel(), carDataList.get(i).getId(), carDataList.get(i).getMileage(), carDataList.get(i).getName(), carDataList.get(i).getRegistrationNumber(), carDataList.get(i).getServiceMode());
+                for (Car car : cars) {
+                    ClusterMarker item = new ClusterMarker(car);
                     mClusterManager.addItem(item);
                 }
                 mClusterManager.cluster();

@@ -2,14 +2,15 @@ package pl.carrifyandroid.Screens.Auth.Register;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import javax.inject.Inject;
 
@@ -27,18 +28,16 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    @BindView(R.id.registerPersonalNumber)
-    EditText registerPersonalNumber;
-    @BindView(R.id.registerEmail)
-    EditText registerEmail;
-    @BindView(R.id.registerPassword)
-    EditText registerPassword;
-    @BindView(R.id.registerPhoneNumber)
-    EditText registerPhoneNumber;
-    @BindView(R.id.registerButton)
-    Button registerButton;
-    @BindView(R.id.registerConstraintLayout)
-    ConstraintLayout registerConstraintLayout;
+    @BindView(R.id.registerPersonalNumber) TextInputEditText registerPersonalNumber;
+    @BindView(R.id.registerEmail) TextInputEditText registerEmail;
+    @BindView(R.id.registerPassword) TextInputEditText registerPassword;
+    @BindView(R.id.registerPhoneNumber) TextInputEditText registerPhoneNumber;
+    @BindView(R.id.registerButton) MaterialButton registerButton;
+    @BindView(R.id.registerConstraintLayout) ConstraintLayout registerConstraintLayout;
+    @BindView(R.id.registerEmailLayout) TextInputLayout registerEmailLayout;
+    @BindView(R.id.registerPasswordLayout) TextInputLayout registerPasswordLayout;
+    @BindView(R.id.registerPhoneLayout) TextInputLayout registerPhoneLayout;
+    @BindView(R.id.registerPersonalNumberLayout) TextInputLayout registerPersonalNumberLayout;
 
     @Inject
     RegisterManager registerManager;
@@ -69,39 +68,23 @@ public class RegisterActivity extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
-    @OnClick({R.id.registerButton})
-    public void onViewClicked(View view) {
-        String action = "WE3ceg6";
-        switch (view.getId()) {
-            case R.id.registerButton:
-                if (registerPhoneNumber.getText().toString().length() == 0) {
-                    Toast.makeText(this, getString(R.string.wrong_phone_number), LENGTH_SHORT).show();
-                    return;
-                }
-                phoneNumber = registerPhoneNumber.getText().toString();
+    @OnClick(R.id.registerButton)
+    public void onRegisterButtonClicked() {
+        registerPasswordLayout.setError(null);
+        registerPersonalNumberLayout.setError(null);
+        registerEmailLayout.setError(null);
+        if(registerPhoneNumber.getText() != null)
+            phoneNumber = registerPhoneNumber.getText().toString();
+        if(registerPersonalNumber.getText() != null)
+             personalNumber = registerPersonalNumber.getText().toString();
+        if(registerEmail.getText() != null)
+            email = registerEmail.getText().toString();
+        if(registerPassword.getText() != null)
+            password = registerPassword.getText().toString();
 
-                if (registerPersonalNumber.getText().toString().length() == 0) {
-                    Toast.makeText(this, getString(R.string.personal_number), LENGTH_SHORT).show();
-                    return;
-                }
-                personalNumber = registerPersonalNumber.getText().toString();
-
-                if (registerEmail.getText().toString().length() == 0) {
-                    Toast.makeText(this, getString(R.string.wrong_email_address), LENGTH_SHORT).show();
-                    return;
-                }
-                email = registerEmail.getText().toString();
-
-                if (registerPassword.getText().toString().length() == 0) {
-                    Toast.makeText(this, getString(R.string.wrong_password), LENGTH_SHORT).show();
-                    return;
-                }
-                password = registerPassword.getText().toString();
-
-                registerManager.registerRequest(action, password, personalNumber, email, phoneNumber);
-                break;
-        }
+        registerManager.registerRequest(password, personalNumber, email, phoneNumber);
     }
+
 
     @Override
     protected void onPause() {
@@ -115,9 +98,13 @@ public class RegisterActivity extends AppCompatActivity {
         registerManager.onAttach(this);
     }
 
-    public void performRegisterAction(AuthRequest authRequest) {
-        Toast.makeText(this, getString(R.string.register_success), LENGTH_SHORT).show();
-        registerManager.loginRequest("Po23cVe", password, personalNumber, email, phoneNumber);
+    public void performRegisterAction() {
+        FancyToast.makeText(this, getString(R.string.register_success),
+                LENGTH_SHORT, FancyToast.SUCCESS, false).show();
+        registerPasswordLayout.setError(null);
+        registerPersonalNumberLayout.setError(null);
+        registerEmailLayout.setError(null);
+        registerManager.loginRequest(password, personalNumber, email, phoneNumber);
     }
 
     public void performLoginAction(AuthRequest authRequest) {
@@ -129,10 +116,19 @@ public class RegisterActivity extends AppCompatActivity {
             Intent mainIntent = new Intent(this, MainActivity.class);
             startActivity(mainIntent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
         }
     }
 
     public void showErrorResponse(String messageFromErrorBody) {
-        Toast.makeText(this, messageFromErrorBody, LENGTH_SHORT).show();
+        if(getString(R.string.wrong_password).equals(messageFromErrorBody)) {
+            registerPasswordLayout.setError(messageFromErrorBody);
+        } else if(getString(R.string.wrong_email_address).equals(messageFromErrorBody) ||
+                getString(R.string.email_in_use).equals(messageFromErrorBody)) {
+            registerEmailLayout.setError(messageFromErrorBody);
+        } else if(getString(R.string.wrong_personal_number).equals(messageFromErrorBody) ||
+                getString(R.string.personal_number_in_use).equals(messageFromErrorBody)) {
+            registerPersonalNumberLayout.setError(messageFromErrorBody);
+        }
     }
 }

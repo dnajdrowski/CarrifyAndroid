@@ -11,22 +11,23 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineV80"
-        app:layout_constraintStart_toStartOf="@+id/guidelineV20"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_v80"
+        app:layout_constraintStart_toStartOf="@+id/guideline_v20"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/carrify_logo" />
+        app:srcCompat="@drawable/carrify_logo"
+        android:contentDescription="@null" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineV20"
+        android:id="@+id/guideline_v20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_percent="0.2" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineV80"
+        android:id="@+id/guideline_v80"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.70" />
+        app:layout_constraintGuide_percent="0.80" />
 </androidx.constraintlayout.widget.ConstraintLayout>

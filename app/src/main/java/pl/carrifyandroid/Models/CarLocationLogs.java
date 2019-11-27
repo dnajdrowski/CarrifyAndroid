@@ -1,7 +1,5 @@
 package pl.carrifyandroid.Models;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,13 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Builder
-public class RegionZone {
+public class CarLocationLogs {
 
-    private int id;
-    private int strokeWidth;
-    private String strokeColor;
-    private String zoneColor;
+    private Integer id;
+    private Double latitude;
+    private Double longitude;
     private String createdAt;
-    private List<RegionZoneCoords> regionZoneCoords;
 
 }

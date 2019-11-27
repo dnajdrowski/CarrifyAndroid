@@ -25,9 +25,9 @@ public class RestClient {
     public Retrofit provideRetrofit() {
         final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         if (BuildConfig.DEBUG) {
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
         } else {
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
+            loggingInterceptor.level(HttpLoggingInterceptor.Level.NONE);
         }
 
         OkHttpClient client = new OkHttpClient.Builder()

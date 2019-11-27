@@ -24,7 +24,7 @@ public class AppModule {
     }
 
     @Provides
-    public Context provideContext() {
+    Context provideContext() {
         return context;
     }
 
@@ -35,24 +35,24 @@ public class AppModule {
     }
 
     @Provides
-    public API provideApi(Retrofit retrofit) {
+    API provideApi(Retrofit retrofit) {
         return retrofit.create(API.class);
     }
 
     @Singleton
     @Provides
-    public Bus provideBus() {
+    Bus provideBus() {
         return new Bus();
     }
 
     @Provides
-    public StorageHelper provideStorageHelper(Context context) {
+    StorageHelper provideStorageHelper(Context context) {
         return new StorageHelper(context);
     }
 
     @Singleton
     @Provides
-    public SplashManager provideSplashManager(API api, StorageHelper storageHelper) {
+    SplashManager provideSplashManager(API api, StorageHelper storageHelper) {
         return new SplashManager(api, storageHelper);
     }
 

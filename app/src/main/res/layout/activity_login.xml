@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/loginConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
+
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_h20"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_v80"
+        app:layout_constraintStart_toStartOf="@+id/guideline_v20"
+        app:layout_constraintTop_toTopOf="@+id/guideline_h05"
+        app:srcCompat="@drawable/carrify_logo" />
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="@font/nineteenth"
+        android:gravity="center"
+        android:text="@string/login"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_h35"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_v80"
+        app:layout_constraintStart_toStartOf="@+id/guideline_v20"
+        app:layout_constraintTop_toTopOf="@+id/guideline_h28" />
 
 
     <TextView
@@ -18,192 +42,160 @@
         android:gravity="center"
         android:text="@string/enter_phone_to_login"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineH46"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_h41"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineH42" />
+        app:layout_constraintTop_toTopOf="@+id/guideline_h37" />
 
-    <EditText
-        android:id="@+id/loginPhone"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loginPhoneLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/grey_circle_edittext"
-        android:ems="10"
-        android:fontFamily="@font/nineteenth"
-        android:gravity="center"
+        android:layout_height="wrap_content"
         android:hint="@string/phone_number"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineH8"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineV80"
-        app:layout_constraintStart_toStartOf="@+id/guidelineV20"
-        app:layout_constraintTop_toTopOf="@+id/guidelineH7" />
+        app:boxCornerRadiusBottomEnd="5dp"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusTopStart="5dp"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:boxStrokeWidth="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_v80"
+        app:layout_constraintStart_toStartOf="@+id/guideline_v20"
+        app:layout_constraintTop_toTopOf="@+id/guideline_h50">
 
-    <EditText
-        android:id="@+id/loginPassword"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/loginPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nineteenth"
+            android:gravity="center"
+            android:inputType="phone" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loginPasswordLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/grey_circle_edittext"
-        android:ems="10"
-        android:fontFamily="@font/nineteenth"
-        android:gravity="center"
+        android:layout_height="wrap_content"
         android:hint="@string/password"
-        android:inputType="textPassword"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineH10"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineV80"
-        app:layout_constraintStart_toStartOf="@+id/guidelineV20"
-        app:layout_constraintTop_toTopOf="@+id/guidelineH9" />
+        app:boxCornerRadiusBottomEnd="5dp"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        android:layout_marginTop="25dp"
+        app:boxCornerRadiusTopStart="5dp"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:boxStrokeWidth="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_h76"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_v80"
+        app:layout_constraintStart_toStartOf="@+id/guideline_v20"
+        app:layout_constraintTop_toBottomOf="@+id/loginPhoneLayout">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineH20"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineV80"
-        app:layout_constraintStart_toStartOf="@+id/guidelineV20"
-        app:layout_constraintTop_toTopOf="@+id/guidelineH05"
-        app:srcCompat="@drawable/carrify_logo" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/loginPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/nineteenth"
+            android:gravity="center"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fontFamily="@font/nineteenth"
-        android:gravity="center"
-        android:text="@string/login"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineH40"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineV80"
-        app:layout_constraintStart_toStartOf="@+id/guidelineV20"
-        app:layout_constraintTop_toTopOf="@+id/guidelineH33" />
-
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/loginButton"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:alpha="0.7"
         android:background="@android:color/transparent"
         android:fontFamily="@font/nineteenth"
         android:gravity="center"
         android:text="@string/sign_in"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="21sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineV80"
-        app:layout_constraintStart_toStartOf="@+id/guidelineV20"
-        app:layout_constraintTop_toTopOf="@+id/guidelineH12" />
+        app:cornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_h83"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_v80"
+        app:layout_constraintStart_toStartOf="@+id/guideline_v20"
+        app:layout_constraintTop_toTopOf="@+id/guideline_h76" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineH05"
+        android:id="@+id/guideline_h05"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineH20"
+        android:id="@+id/guideline_h20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.2" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineH33"
+        android:id="@+id/guideline_h28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.28" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineH40"
+        android:id="@+id/guideline_h35"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.35" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineH42"
+        android:id="@+id/guideline_h37"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.37" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineH46"
+        android:id="@+id/guideline_h41"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.41" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineH50"
+        android:id="@+id/guideline_h45"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.45" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineH55"
+        android:id="@+id/guideline_h50"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineH7"
+        android:id="@+id/guideline_h76"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.52" />
+        app:layout_constraintGuide_percent="0.76" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineH8"
+        android:id="@+id/guideline_h83"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.57" />
+        app:layout_constraintGuide_percent="0.83" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineH9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.59" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineH10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.64" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineH11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.66" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineH12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.71" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineV20"
+        android:id="@+id/guideline_v20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.2" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineV80"
+        android:id="@+id/guideline_v80"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"

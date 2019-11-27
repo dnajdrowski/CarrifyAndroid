@@ -3,66 +3,35 @@ package pl.carrifyandroid.Models;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
 public class ClusterMarker implements ClusterItem {
 
     private LatLng mPosition;
-    private String lastService;
-    private String lastSync;
-    private int carState;
-    private int fuelLevel;
     private int id;
-    private int mileage;
     private String name;
+    private int fuelLevel;
     private String registrationNumber;
     private int serviceMode;
+    private int mileage;
+    private int carState;
 
-    public ClusterMarker(LatLng mPosition, String lastService, String lastSync, int carState, int fuelLevel, int id, int mileage, String name, String registrationNumber, int serviceMode) {
-        this.mPosition = mPosition;
-        this.lastService = lastService;
-        this.lastSync = lastSync;
-        this.carState = carState;
-        this.fuelLevel = fuelLevel;
-        this.id = id;
-        this.mileage = mileage;
-        this.name = name;
-        this.registrationNumber = registrationNumber;
-        this.serviceMode = serviceMode;
-    }
-
-    public String getLastService() {
-        return lastService;
-    }
-
-    public String getLastSync() {
-        return lastSync;
-    }
-
-    public int getCarState() {
-        return carState;
-    }
-
-    public int getFuelLevel() {
-        return fuelLevel;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getMileage() {
-        return mileage;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getRegistrationNumber() {
-        return registrationNumber;
-    }
-
-    public int getServiceMode() {
-        return serviceMode;
+    public ClusterMarker(Car car) {
+        this.mPosition = new LatLng(car.getLastLocation().getLatitude(), car.getLastLocation().getLongitude());
+        this.id = car.getId();
+        this.name = car.getName();
+        this.fuelLevel = car.getFuelLevel();
+        this.registrationNumber = car.getRegistrationNumber();
+        this.serviceMode = car.getServiceMode();
+        this.mileage = car.getMileage();
+        this.carState = car.getCarState();
     }
 
     @Override

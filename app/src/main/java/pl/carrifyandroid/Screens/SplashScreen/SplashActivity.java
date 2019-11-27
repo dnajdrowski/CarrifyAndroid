@@ -48,16 +48,18 @@ public class SplashActivity extends AppCompatActivity {
         splashManager.onStop();
     }
 
-    public void showErrorResponse() {
+    public void showLoginActivity() {
         Intent loginIntent = new Intent(this, LoginActivity.class);
         startActivity(loginIntent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
     }
 
-    public void progressResponse(Integer body) {
+    public void showMainActivity(Integer body) {
         storageHelper.setInteger("userId", body);
         Intent mainIntent = new Intent(this, MainActivity.class);
         startActivity(mainIntent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
     }
 }

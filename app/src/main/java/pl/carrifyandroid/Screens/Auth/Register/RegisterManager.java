@@ -27,22 +27,22 @@ public class RegisterManager {
         this.storageHelper = storageHelper;
     }
 
-    public void onAttach(RegisterActivity registerActivity) {
+    void onAttach(RegisterActivity registerActivity) {
         this.registerActivity = registerActivity;
     }
 
-    public void onStop() {
+    void onStop() {
         this.registerActivity = null;
     }
 
-    void registerRequest(String action, String password, String personalNumber, String email, String phone) {
-        Call<AuthRequest> call = api.loginRequest(new AuthRequest(action, password, personalNumber, email, phone));
+    void registerRequest(String password, String personalNumber, String email, String phone) {
+        Call<AuthRequest> call = api.loginRequest(new AuthRequest("WE3ceg6", password, personalNumber, email, phone));
         call.enqueue(new Callback<AuthRequest>() {
             @Override
             public void onResponse(@NonNull Call<AuthRequest> call, @NotNull Response<AuthRequest> response) {
                 if (registerActivity != null)
                     if (response.isSuccessful()) {
-                        registerActivity.performRegisterAction(response.body());
+                        registerActivity.performRegisterAction();
                     } else
                         registerActivity.showErrorResponse(ErrorHandler.getMessageFromErrorBody(response.errorBody()));
             }
@@ -55,8 +55,8 @@ public class RegisterManager {
         });
     }
 
-    void loginRequest(String action, String password, String personalNumber, String email, String phone) {
-        Call<AuthRequest> call = api.loginRequest(new AuthRequest(action, password, personalNumber, email, phone));
+    void loginRequest(String password, String personalNumber, String email, String phone) {
+        Call<AuthRequest> call = api.loginRequest(new AuthRequest("Po23cVe", password, personalNumber, email, phone));
         call.enqueue(new Callback<AuthRequest>() {
             @Override
             public void onResponse(@NonNull Call<AuthRequest> call, @NotNull Response<AuthRequest> response) {
@@ -71,7 +71,6 @@ public class RegisterManager {
             public void onFailure(@NotNull Call<AuthRequest> call, @NonNull Throwable t) {
                 Timber.d("Carrify Splash Manager %s", t.getLocalizedMessage());
             }
-
         });
     }
 

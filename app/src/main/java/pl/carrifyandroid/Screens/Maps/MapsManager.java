@@ -1,13 +1,11 @@
 package pl.carrifyandroid.Screens.Maps;
 
-import android.util.Log;
-
 import java.util.List;
 
 import javax.inject.Inject;
 
 import pl.carrifyandroid.API.API;
-import pl.carrifyandroid.Models.CarData;
+import pl.carrifyandroid.Models.Car;
 import pl.carrifyandroid.Models.RegionZone;
 import pl.carrifyandroid.Utils.StorageHelper;
 import retrofit2.Call;
@@ -53,19 +51,21 @@ public class MapsManager {
     }
 
     void getCarsData() {
-        Call<List<CarData>> call = api.getCarsData("Bearer " + storageHelper.getString("token"));
-        call.enqueue(new Callback<List<CarData>>() {
+        Call<List<Car>> call = api.getCarsData("Bearer " + storageHelper.getString("token"));
+        call.enqueue(new Callback<List<Car>>() {
             @Override
-            public void onResponse(Call<List<CarData>> call, Response<List<CarData>> response) {
+            public void onResponse(Call<List<Car>> call, Response<List<Car>> response) {
                 if (mapsFragment != null)
-                    if (response.isSuccessful())
-                        mapsFragment.showList(response.body());
+                    if (response.isSuccessful()) {
+                        mapsFragment.showCarsOnMap(response.body());
+                    }
+
 
             }
 
             @Override
-            public void onFailure(Call<List<CarData>> call, Throwable t) {
-
+            public void onFailure(Call<List<Car>> call, Throwable t) {
+               Timber.e(t);
             }
         });
     }

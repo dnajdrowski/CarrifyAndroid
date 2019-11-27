@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 .intervalMs(30000)   // 1 second
 
                 .locationObserver(location -> {
-                    EventBus.get().post(new BusLocation(location));
+                    EventBus.getBus().post(new BusLocation(location));
                     if (location != null)
                         Timber.d(location.getLatitude() + "," + location.getLongitude());
                 })
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                         //      Log.d(TAG, "getFastLoc: Wysylam FAST LOC");
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
-                        EventBus.get().post(new BusLocation(location));
+                        EventBus.getBus().post(new BusLocation(location));
                     }
                     if (location != null)
                         Timber.d(location.getLatitude() + "," + location.getLongitude());
@@ -179,14 +179,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        EventBus.get().register(this);
+        EventBus.getBus().register(this);
         active = true;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        EventBus.get().unregister(this);
+        EventBus.getBus().unregister(this);
         active = false;
     }
 

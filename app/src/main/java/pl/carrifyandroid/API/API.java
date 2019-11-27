@@ -4,7 +4,7 @@ import java.util.List;
 
 import pl.carrifyandroid.API.ApiModels.AuthRequest;
 import pl.carrifyandroid.API.ApiModels.JwtVerifyTokenRequest;
-import pl.carrifyandroid.Models.CarData;
+import pl.carrifyandroid.Models.Car;
 import pl.carrifyandroid.Models.RegionZone;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -24,9 +24,7 @@ public interface API {
      * @return
      */
     @POST("auth/verifyToken")
-    Call<Integer> verifyToken(
-            @Body JwtVerifyTokenRequest jwtVerifyTokenRequest,
-            @Header("Authorization") String token);
+    Call<Integer> verifyToken(@Body JwtVerifyTokenRequest jwtVerifyTokenRequest);
 
     /**
      * POST
@@ -56,7 +54,7 @@ public interface API {
      * @return
      */
     @GET("api/cars")
-    Call<List<CarData>> getCarsData(
+    Call<List<Car>> getCarsData(
             @Header("Authorization") String token);
 
 }
