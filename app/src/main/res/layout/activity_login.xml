@@ -25,7 +25,7 @@
         android:fontFamily="@font/nineteenth"
         android:gravity="center"
         android:text="@string/login"
-        android:textSize="36sp"
+        android:textSize="@dimen/text_size_35sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline_h35"
         app:layout_constraintEnd_toStartOf="@+id/guideline_v80"
         app:layout_constraintStart_toStartOf="@+id/guideline_v20"
@@ -41,7 +41,7 @@
         android:fontFamily="@font/nineteenth"
         android:gravity="center"
         android:text="@string/enter_phone_to_login"
-        android:textSize="12sp"
+        android:textSize="@dimen/text_size_12sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline_h41"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +69,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/nineteenth"
             android:gravity="center"
-            android:inputType="phone" />
+            android:inputType="phone"
+            android:textSize="@dimen/text_size_15sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -95,7 +96,8 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/nineteenth"
             android:gravity="center"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textSize="@dimen/text_size_15sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -108,7 +110,7 @@
         android:gravity="center"
         android:text="@string/sign_in"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="21sp"
+        android:textSize="@dimen/text_size_20sp"
         app:cornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline_v80"

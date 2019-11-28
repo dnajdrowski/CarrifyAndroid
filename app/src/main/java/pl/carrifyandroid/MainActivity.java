@@ -26,6 +26,8 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.material.navigation.NavigationView;
 import com.johnnylambada.location.LocationProvider;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -166,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.container, fragment);
         ft.commitAllowingStateLoss();
-
     }
 
     public void openDrawer() {

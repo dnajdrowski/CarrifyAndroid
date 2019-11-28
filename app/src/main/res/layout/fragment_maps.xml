@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
-        xmlns:tools="http://schemas.android.comąć/tools"
+    <fragment xmlns:tools="http://schemas.android.comąć/tools"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="wrap_content"
