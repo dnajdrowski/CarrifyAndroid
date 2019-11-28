@@ -4,8 +4,10 @@ import java.util.List;
 
 import pl.carrifyandroid.API.ApiModels.AuthRequest;
 import pl.carrifyandroid.API.ApiModels.JwtVerifyTokenRequest;
+import pl.carrifyandroid.API.ApiModels.NewRentRequest;
 import pl.carrifyandroid.Models.Car;
 import pl.carrifyandroid.Models.RegionZone;
+import pl.carrifyandroid.Models.Rent;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -55,6 +57,28 @@ public interface API {
      */
     @GET("api/cars")
     Call<List<Car>> getCarsData(
+            @Header("Authorization") String token);
+
+    /**
+     * POST
+     * EXAMPLE
+     *
+     * @return
+     */
+    @POST("api/rents/new-rent")
+    Call<Rent> addNewRent(
+            @Body NewRentRequest newRentRequest,
+            @Header("Authorization") String token);
+
+    /**
+     * POST
+     * EXAMPLE
+     *
+     * @return
+     */
+    @GET("api/rents/user/{id}/active")
+    Call<Rent> getActiveRents(
+            @Path("id") int id,
             @Header("Authorization") String token);
 
 }

@@ -18,6 +18,6 @@ public class RegionZone {
     private String strokeColor;
     private String zoneColor;
     private String createdAt;
-    private List<RegionZoneCoords> regionZoneCoords;
+    private List<RegionZoneCoords> regionZoneCoordsDTO;
 
 }

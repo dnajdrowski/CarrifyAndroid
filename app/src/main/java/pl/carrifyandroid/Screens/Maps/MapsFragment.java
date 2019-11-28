@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,7 @@ import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
+import com.shashank.sony.fancytoastlib.FancyToast;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -54,11 +56,14 @@ import pl.carrifyandroid.Models.Car;
 import pl.carrifyandroid.Models.ClusterMarker;
 import pl.carrifyandroid.Models.RegionZone;
 import pl.carrifyandroid.Models.RegionZoneCoords;
+import pl.carrifyandroid.Models.Rent;
 import pl.carrifyandroid.R;
+import pl.carrifyandroid.Screens.CarPreview.CarPreviewDialog;
 import pl.carrifyandroid.Utils.EventBus;
 import pl.carrifyandroid.Utils.LocationUtils;
 import pl.carrifyandroid.Utils.StorageHelper;
-import timber.log.Timber;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback,
         ClusterManager.OnClusterClickListener<ClusterMarker>,
@@ -76,6 +81,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
     private Location myLastLocation;
     private Location myLocation;
     private LruCache<Integer, BitmapDescriptor> cache;
+    private Handler carDownloadHandler = new Handler();
+    private Runnable runnable;
 
     private boolean canGetLocation = false;
     private boolean mapLoaded = false;
@@ -154,6 +161,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         mapsManager.getCarsData();
 
         MapsInitializer.initialize(Objects.requireNonNull(getContext()).getApplicationContext());
+        getCarsFromApi();
     }
 
     @Subscribe
@@ -197,6 +205,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         }
     }
 
+    private void getCarsFromApi() {
+        carDownloadHandler.postDelayed(runnable = () -> {
+            mapsManager.getCarsData();
+            carDownloadHandler.postDelayed(runnable, 15000);
+        }, 0);
+    }
+
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorResId, int sizeX, int sizeY) {
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
         Objects.requireNonNull(vectorDrawable).setBounds(0, 0, sizeX, sizeY);
@@ -224,6 +239,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         super.onResume();
         mapsManager.onAttach(this);
         EventBus.getBus().register(this);
+        mapsManager.getActiveRents();
     }
 
     @Override
@@ -241,7 +257,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
 
     void drawRegionZones(RegionZone regionZone) {
         PolygonOptions polygonOptions = new PolygonOptions();
-        List<RegionZoneCoords> points = regionZone.getRegionZoneCoords();
+        List<RegionZoneCoords> points = regionZone.getRegionZoneCoordsDTO();
         for (RegionZoneCoords point : points) {
             polygonOptions.add(new LatLng(point.getLatitude(), point.getLongitude()));
         }
@@ -263,6 +279,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
                 mClusterManager.cluster();
             }
         }
+    }
+
+    void showActiveRent(Rent body) {
+        FancyToast.makeText(getContext(), "Yeah, you got RENT!", LENGTH_LONG,
+                FancyToast.SUCCESS, false).show();
     }
 
     class MyClusterRenderer extends DefaultClusterRenderer<ClusterMarker> {
@@ -356,6 +377,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
 
     @Override
     public boolean onClusterItemClick(ClusterMarker clusterMarker) {
+        CarPreviewDialog carPreviewDialog = new CarPreviewDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("name", clusterMarker.getName());
+        bundle.putInt("fuelLevel", clusterMarker.getFuelLevel());
+        bundle.putInt("carId", clusterMarker.getId());
+        carPreviewDialog.setArguments(bundle);
+        if (getFragmentManager() != null)
+            carPreviewDialog.show(getFragmentManager(), "CarPreview");
         return false;
     }
 

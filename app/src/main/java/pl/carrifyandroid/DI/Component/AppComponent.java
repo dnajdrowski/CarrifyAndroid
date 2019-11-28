@@ -7,12 +7,15 @@ import pl.carrifyandroid.DI.Module.AppModule;
 import pl.carrifyandroid.MainActivity;
 import pl.carrifyandroid.Screens.Auth.Login.LoginActivity;
 import pl.carrifyandroid.Screens.Auth.Register.RegisterActivity;
+import pl.carrifyandroid.Screens.CarPreview.CarPreviewDialog;
 import pl.carrifyandroid.Screens.Maps.MapsFragment;
 import pl.carrifyandroid.Screens.SplashScreen.SplashActivity;
 
 @Singleton
 @Component(modules = AppModule.class)
 public interface AppComponent {
+
+    void inject(CarPreviewDialog carPreviewDialog);
 
     void inject(MapsFragment mapsFragment);
 

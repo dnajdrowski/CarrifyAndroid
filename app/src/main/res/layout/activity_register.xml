@@ -93,7 +93,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/nineteenth"
             android:gravity="center"
-            android:inputType="text"
+            android:inputType="number"
             android:textSize="@dimen/text_size_15sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,7 +120,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/nineteenth"
             android:gravity="center"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:textSize="@dimen/text_size_15sp" />
     </com.google.android.material.textfield.TextInputLayout>
 

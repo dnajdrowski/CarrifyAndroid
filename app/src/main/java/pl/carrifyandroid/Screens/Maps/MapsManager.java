@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import pl.carrifyandroid.API.API;
 import pl.carrifyandroid.Models.Car;
 import pl.carrifyandroid.Models.RegionZone;
+import pl.carrifyandroid.Models.Rent;
 import pl.carrifyandroid.Utils.StorageHelper;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,9 +66,28 @@ public class MapsManager {
 
             @Override
             public void onFailure(Call<List<Car>> call, Throwable t) {
-               Timber.e(t);
+                Timber.e(t);
             }
         });
     }
 
+    void getActiveRents() {
+        Call<Rent> call = api.getActiveRents(storageHelper.getInt("userId"), "Bearer " + storageHelper.getString("token"));
+        call.enqueue(new Callback<Rent>() {
+            @Override
+            public void onResponse(Call<Rent> call, Response<Rent> response) {
+                if (mapsFragment != null)
+                    if (response.isSuccessful()) {
+                        mapsFragment.showActiveRent(response.body());
+                    }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Rent> call, Throwable t) {
+                Timber.e(t);
+            }
+        });
+    }
 }
