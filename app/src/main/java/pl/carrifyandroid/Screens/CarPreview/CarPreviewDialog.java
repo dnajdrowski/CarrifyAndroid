@@ -39,9 +39,9 @@ public class CarPreviewDialog extends DialogFragment {
 
     @BindView(R.id.rentButton)
     MaterialButton rentButton;
-    @BindView(R.id.carRegistrationNumber)
+    @BindView(R.id.car_registration_number)
     TextView carRegistrationNumber;
-    @BindView(R.id.carFuel)
+    @BindView(R.id.car_fuel)
     TextView carFuel;
 
     private int fuelLevel = 0;

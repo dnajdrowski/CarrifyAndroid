@@ -2,7 +2,10 @@ package pl.carrifyandroid.Screens.Auth.Login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -13,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import javax.inject.Inject;
@@ -28,6 +32,7 @@ import pl.carrifyandroid.R;
 import pl.carrifyandroid.Screens.Auth.Register.RegisterActivity;
 import pl.carrifyandroid.Utils.KeyboardHider;
 import pl.carrifyandroid.Utils.StorageHelper;
+import timber.log.Timber;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.LENGTH_SHORT;
@@ -40,6 +45,8 @@ public class LoginActivity extends AppCompatActivity {
     @Inject
     StorageHelper storageHelper;
 
+    @BindView(R.id.textView)
+    MaterialTextView textView;
     @BindView(R.id.loginPassword)
     EditText loginPassword;
     @BindView(R.id.loginPhone)

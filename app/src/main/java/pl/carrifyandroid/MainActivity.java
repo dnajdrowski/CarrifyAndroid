@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        menuRecycler = navigationView.findViewById(R.id.menuRecycler);
 
         View headerView = navigationView.getHeaderView(0);
         //username
