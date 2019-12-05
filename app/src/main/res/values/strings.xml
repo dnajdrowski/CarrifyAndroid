@@ -25,4 +25,7 @@
     <string name="register_success">Register successful! You will be moved to the Application!</string>
     <string name="rent">Rent</string>
     <string name="rent_successful">You rented car successfully!</string>
+    <string name="time_of_rent">Time of rent:</string>
+    <string name="distance">Distance:</string>
+    <string name="park">Park</string>
 </resources>

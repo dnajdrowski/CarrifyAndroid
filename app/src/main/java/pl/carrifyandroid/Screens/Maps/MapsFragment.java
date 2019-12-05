@@ -84,7 +84,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
     private Handler carDownloadHandler = new Handler();
     private Runnable runnable;
 
-    private boolean canGetLocation = false;
     private boolean mapLoaded = false;
     private boolean initMe = false;
 
