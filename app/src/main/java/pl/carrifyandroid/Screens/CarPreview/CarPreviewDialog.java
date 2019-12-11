@@ -44,10 +44,6 @@ public class CarPreviewDialog extends DialogFragment {
     @BindView(R.id.car_fuel)
     TextView carFuel;
 
-    private int fuelLevel = 0;
-    private String name = "";
-    private int carId = 0;
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -60,21 +56,17 @@ public class CarPreviewDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_car_preview, container, false);
         ButterKnife.bind(this, view);
         if (getArguments() != null) {
-            carId = getArguments().getInt("carId");
-            fuelLevel = getArguments().getInt("fuelLevel");
-            name = getArguments().getString("name");
-            carRegistrationNumber.setText("Car name: " + name);
-            carFuel.setText("Fuel level: " + fuelLevel + "%");
+
+            carRegistrationNumber.setText(getArguments().getString("name"));
+            carFuel.setText("Fuel level: " + getArguments().getInt("fuelLevel"));
         }
         return view;
     }
 
     @OnClick({R.id.rentButton})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.rentButton:
-                carPreviewManager.setNewRent(carId);
-                break;
+    void onRentButtonClicked() {
+        if(getArguments() != null) {
+            carPreviewManager.setNewRent(getArguments().getInt("carId"));
         }
     }
 

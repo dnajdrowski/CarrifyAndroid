@@ -9,12 +9,19 @@
     tools:ignore="MissingDefaultResource"
     tools:openDrawer="start">
 
-    <include android:id="@+id/map"
-        layout="@layout/fragment_maps"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-<!--    <include android:id="@+id/rent_info_layout"-->
-<!--        layout="@layout/bottom_sheet"-->
-<!--        app:layout_behavior="@string/bottom_sheet_behavior"/>-->
+        <include android:id="@+id/map"
+            layout="@layout/fragment_maps"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include android:id="@+id/rent_info_layout"
+        layout="@layout/bottom_sheet"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        android:visibility="gone"/>
 
     <include android:id="@+id/nav_view"
         layout="@layout/nav_view"/>
