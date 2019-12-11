@@ -11,7 +11,7 @@ import lombok.Setter;
 @Builder
 public class Rent {
     private int amount;
-    private int carId;
+    private Car car;
     private String createdAt;
     private int distance;
     private String endAt;

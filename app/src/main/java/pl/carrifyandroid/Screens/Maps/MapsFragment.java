@@ -54,9 +54,11 @@ import pl.carrifyandroid.Models.AttachMaps;
 import pl.carrifyandroid.Models.BusLocation;
 import pl.carrifyandroid.Models.Car;
 import pl.carrifyandroid.Models.ClusterMarker;
+import pl.carrifyandroid.Models.EndRent;
 import pl.carrifyandroid.Models.RegionZone;
 import pl.carrifyandroid.Models.RegionZoneCoords;
 import pl.carrifyandroid.Models.Rent;
+import pl.carrifyandroid.Models.RentChange;
 import pl.carrifyandroid.R;
 import pl.carrifyandroid.Screens.CarPreview.CarPreviewDialog;
 import pl.carrifyandroid.Utils.EventBus;
@@ -204,6 +206,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         }
     }
 
+    @Subscribe
+    public void onEndRent(EndRent endRent) {
+        mapsManager.endRent(endRent.getRentId());
+    }
+
     private void getCarsFromApi() {
         carDownloadHandler.postDelayed(runnable = () -> {
             mapsManager.getCarsData();
@@ -280,9 +287,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         }
     }
 
-    void showActiveRent(Rent body) {
-        FancyToast.makeText(getContext(), "Yeah, you got RENT!", LENGTH_LONG,
-                FancyToast.SUCCESS, false).show();
+    void showRentResponse(Rent body, boolean validRent) {
+        if (body != null)
+            EventBus.getBus().post(new RentChange(validRent, body));
+        if (!validRent)
+            FancyToast.makeText(getContext(), "You have successfully completed your rental!", LENGTH_LONG,
+                    FancyToast.SUCCESS, false).show();
     }
 
     class MyClusterRenderer extends DefaultClusterRenderer<ClusterMarker> {

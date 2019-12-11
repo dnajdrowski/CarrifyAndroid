@@ -20,8 +20,7 @@
 
     <include android:id="@+id/rent_info_layout"
         layout="@layout/bottom_sheet"
-        app:layout_behavior="@string/bottom_sheet_behavior"
-        android:visibility="gone"/>
+        app:layout_behavior="@string/bottom_sheet_behavior"/>
 
     <include android:id="@+id/nav_view"
         layout="@layout/nav_view"/>

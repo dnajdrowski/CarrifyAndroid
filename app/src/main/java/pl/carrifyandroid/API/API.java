@@ -81,4 +81,16 @@ public interface API {
             @Path("id") int id,
             @Header("Authorization") String token);
 
+    /**
+     * GET
+     * Method which we use to end our rent.
+     *
+     * @param id - current rent id
+     * @param token - user validation
+     * @return Rent object
+     */
+    @GET("api/rents/{id}/finish")
+    Call<Rent> endRent(
+            @Path("id") int id,
+            @Header("Authorization") String token);
 }

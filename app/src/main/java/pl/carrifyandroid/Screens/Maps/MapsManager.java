@@ -1,5 +1,7 @@
 package pl.carrifyandroid.Screens.Maps;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,7 +17,8 @@ import retrofit2.Response;
 import timber.log.Timber;
 
 public class MapsManager {
-    StorageHelper storageHelper;
+
+    private StorageHelper storageHelper;
     private API api;
     private MapsFragment mapsFragment;
 
@@ -37,7 +40,7 @@ public class MapsManager {
         Call<RegionZone> call = api.getRegionZones(id, "Bearer " + storageHelper.getString("token"));
         call.enqueue(new Callback<RegionZone>() {
             @Override
-            public void onResponse(Call<RegionZone> call, Response<RegionZone> response) {
+            public void onResponse(@NotNull Call<RegionZone> call, @NotNull Response<RegionZone> response) {
                 if (mapsFragment != null)
                     if (response.isSuccessful())
                         mapsFragment.drawRegionZones(response.body());
@@ -45,7 +48,7 @@ public class MapsManager {
             }
 
             @Override
-            public void onFailure(Call<RegionZone> call, Throwable t) {
+            public void onFailure(@NotNull Call<RegionZone> call, @NotNull Throwable t) {
                 Timber.d(t.getLocalizedMessage());
             }
         });
@@ -55,7 +58,7 @@ public class MapsManager {
         Call<List<Car>> call = api.getCarsData("Bearer " + storageHelper.getString("token"));
         call.enqueue(new Callback<List<Car>>() {
             @Override
-            public void onResponse(Call<List<Car>> call, Response<List<Car>> response) {
+            public void onResponse(@NotNull Call<List<Car>> call, @NotNull Response<List<Car>> response) {
                 if (mapsFragment != null)
                     if (response.isSuccessful()) {
                         mapsFragment.showCarsOnMap(response.body());
@@ -65,7 +68,7 @@ public class MapsManager {
             }
 
             @Override
-            public void onFailure(Call<List<Car>> call, Throwable t) {
+            public void onFailure(@NotNull Call<List<Car>> call, @NotNull Throwable t) {
                 Timber.e(t);
             }
         });
@@ -75,18 +78,32 @@ public class MapsManager {
         Call<Rent> call = api.getActiveRents(storageHelper.getInt("userId"), "Bearer " + storageHelper.getString("token"));
         call.enqueue(new Callback<Rent>() {
             @Override
+            public void onResponse(@NotNull Call<Rent> call, @NotNull Response<Rent> response) {
+                if (mapsFragment != null)
+                    if (response.isSuccessful())
+                        mapsFragment.showRentResponse(response.body(), true);
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<Rent> call, @NotNull Throwable t) {
+                Timber.e(t);
+            }
+        });
+    }
+
+    void endRent(int id) {
+        Call<Rent> call = api.endRent(id, "Bearer " + storageHelper.getString("token"));
+        call.enqueue(new Callback<Rent>() {
+            @Override
             public void onResponse(Call<Rent> call, Response<Rent> response) {
                 if (mapsFragment != null)
-                    if (response.isSuccessful()) {
-                        mapsFragment.showActiveRent(response.body());
-                    }
-
-
+                    if (response.isSuccessful())
+                        mapsFragment.showRentResponse(response.body(), false);
             }
 
             @Override
             public void onFailure(Call<Rent> call, Throwable t) {
-                Timber.e(t);
+
             }
         });
     }

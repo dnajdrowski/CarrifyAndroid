@@ -28,7 +28,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pl.carrifyandroid.App;
 import pl.carrifyandroid.Models.Rent;
+import pl.carrifyandroid.Models.RentChange;
 import pl.carrifyandroid.R;
+import pl.carrifyandroid.Utils.EventBus;
 
 import static android.widget.Toast.LENGTH_LONG;
 
@@ -65,7 +67,7 @@ public class CarPreviewDialog extends DialogFragment {
 
     @OnClick({R.id.rentButton})
     void onRentButtonClicked() {
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             carPreviewManager.setNewRent(getArguments().getInt("carId"));
         }
     }
@@ -74,12 +76,14 @@ public class CarPreviewDialog extends DialogFragment {
     public void onPause() {
         super.onPause();
         carPreviewManager.onStop();
+        EventBus.getBus().unregister(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         carPreviewManager.onAttach(this);
+        EventBus.getBus().register(this);
         if (getDialog() == null || getDialog().getWindow() == null)
             return;
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -96,8 +100,10 @@ public class CarPreviewDialog extends DialogFragment {
     }
 
     void showNewResponse(Rent body) {
+        EventBus.getBus().post(new RentChange(true, body));
         FancyToast.makeText(getContext(), getString(R.string.rent_successful), LENGTH_LONG,
                 FancyToast.SUCCESS, false).show();
+        dismiss();
     }
 
     void showErrorResponse(String messageFromErrorBody) {
