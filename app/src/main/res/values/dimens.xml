@@ -8,6 +8,7 @@
     <dimen name="design_navigation_icon_size" tools:override="true">20dp</dimen>
     <dimen name="design_navigation_icon_padding" tools:override="true">5dp</dimen>
     <dimen name="design_navigation_text_size" tools:override="true">30dp</dimen>
+    <dimen name="text_size_9sp">9sp</dimen>
     <dimen name="text_size_12sp">12sp</dimen>
     <dimen name="text_size_35sp">35sp</dimen>
     <dimen name="text_size_15sp">15sp</dimen>

@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="History of rents"
+        android:text="@string/history_of_rents"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="@dimen/text_size_20sp"
         app:layout_constraintBottom_toBottomOf="@+id/historyBack"

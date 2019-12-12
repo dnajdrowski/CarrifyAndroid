@@ -28,4 +28,8 @@
     <string name="time_of_rent">Time of rent:</string>
     <string name="distance">Distance:</string>
     <string name="park">Park</string>
+    <string name="click_orange_background">Click orange background to see details of this rent...</string>
+    <string name="registration_number">Registration number</string>
+    <string name="car_name">Car name</string>
+    <string name="history_of_rents">History of rents</string>
 </resources>

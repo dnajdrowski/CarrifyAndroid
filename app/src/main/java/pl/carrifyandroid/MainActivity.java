@@ -2,9 +2,11 @@ package pl.carrifyandroid;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +29,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.johnnylambada.location.LocationProvider;
 import com.squareup.otto.Subscribe;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,11 +44,12 @@ import butterknife.ButterKnife;
 import pl.carrifyandroid.Models.BusLocation;
 import pl.carrifyandroid.Models.EndRent;
 import pl.carrifyandroid.Models.RentChange;
+import pl.carrifyandroid.Screens.History.HistoryActivity;
 import pl.carrifyandroid.Screens.Maps.MapsFragment;
 import pl.carrifyandroid.Utils.EventBus;
 import pl.carrifyandroid.Utils.StorageHelper;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
     StorageHelper storageHelper;
@@ -95,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         sheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
         View headerView = navigationView.getHeaderView(0);
+        navigationView.setNavigationItemSelectedListener(this);
         //username
         navUsername = headerView.findViewById(R.id.username);
         //avatar
@@ -190,6 +196,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NotNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.history:
+                startActivity(new Intent(this, HistoryActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                break;
+
+        }
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
     @SuppressLint("SetTextI18n")
     @Subscribe
     public void onRentChange(RentChange rentChange) {
@@ -258,5 +280,10 @@ public class MainActivity extends AppCompatActivity {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

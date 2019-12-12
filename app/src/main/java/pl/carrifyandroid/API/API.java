@@ -93,4 +93,17 @@ public interface API {
     Call<Rent> endRent(
             @Path("id") int id,
             @Header("Authorization") String token);
+
+    /**
+     * GET
+     * Method which give us list of our rents of all time.
+     *
+     * @param userId - current user id
+     * @param token - user validation
+     * @return List of rent objects
+     */
+    @GET("api/rents/user/{id}/all")
+    Call<List<Rent>> getRentHistory(
+            @Path("id") int userId,
+            @Header("Authorization") String token);
 }

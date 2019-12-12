@@ -5,39 +5,8 @@
     tools:showIn="@layout/nav_view">
     <group android:checkableBehavior="single">
         <item
-            android:title="Setting"
-            app:showAsAction="ifRoom" />
-        <item
-            android:title="Setting" />
-        <item
-            android:title="Setting"
-            app:showAsAction="ifRoom" />
-        <item
-            android:title="Setting"
-            app:showAsAction="ifRoom" />
-        <item
-        android:title="Setting"
-        app:showAsAction="ifRoom" />
-        <item
-            android:title="Setting"
-            app:showAsAction="ifRoom" />
-        <item
-            android:title="Setting"
-            app:showAsAction="ifRoom" />
-        <item
-            android:title="Setting"
-            app:showAsAction="ifRoom" />
-        <item
-            android:title="Setting"
-            app:showAsAction="ifRoom" />
-        <item
-            android:title="Setting"
-            app:showAsAction="ifRoom" />
-        <item
-            android:title="Setting"
-            app:showAsAction="ifRoom" />
-        <item
-            android:title="Setting"
+            android:id="@+id/history"
+            android:title="@string/history_of_rents"
             app:showAsAction="ifRoom" />
     </group>
 </menu>
