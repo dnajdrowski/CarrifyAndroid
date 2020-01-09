@@ -107,4 +107,22 @@ public class MapsManager {
             }
         });
     }
+
+    void checkDriverLicense() {
+        Call<Integer> call = api.checkDriverLicense(storageHelper.getInt("userId"), "Bearer " + storageHelper.getString("token"));
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                if (response.isSuccessful())
+                    if (mapsFragment != null)
+                        mapsFragment.checkDriverLicense(response.body());
+
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+
+            }
+        });
+    }
 }

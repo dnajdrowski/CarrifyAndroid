@@ -8,5 +8,9 @@
             android:id="@+id/history"
             android:title="@string/history_of_rents"
             app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/wallet"
+            android:title="@string/wallet"
+            app:showAsAction="ifRoom" />
     </group>
 </menu>

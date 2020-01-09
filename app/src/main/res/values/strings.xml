@@ -32,4 +32,16 @@
     <string name="registration_number">Registration number</string>
     <string name="car_name">Car name</string>
     <string name="history_of_rents">History of rents</string>
+    <string name="driver_license_validation">Driver license validation</string>
+    <string name="driver_license_description1">Take two photos of your driver license, first take photo of your front page. Below is example of the photo.</string>
+    <string name="driver_license_description2">Excellent, we got front page! Now, it is time to take photo of reverse page. Below is example of the photo.</string>
+    <string name="take_photo_front_page">Take photo of front page</string>
+    <string name="take_photo_reverse_page">Take photo of reverse page</string>
+    <string name="understood">Understood</string>
+    <string name="apply_promo_code">Apply Promo Code</string>
+    <string name="add_money">Add money</string>
+    <string name="wallet">Wallet</string>
+    <string name="current_balance">Current balance</string>
+    <string name="upload">Upload</string>
+    <string name="driver_license_warning">We detected that you have not uploaded your driver license. In order to rent a car, you need to upload photos of it. Click "Upload" below to take photos.</string>
 </resources>

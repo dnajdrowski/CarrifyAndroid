@@ -87,4 +87,10 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
     public void onItemClick(View view, int position) {
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
 }

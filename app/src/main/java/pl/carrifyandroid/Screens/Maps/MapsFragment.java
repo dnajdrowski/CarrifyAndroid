@@ -61,6 +61,7 @@ import pl.carrifyandroid.Models.Rent;
 import pl.carrifyandroid.Models.RentChange;
 import pl.carrifyandroid.R;
 import pl.carrifyandroid.Screens.CarPreview.CarPreviewDialog;
+import pl.carrifyandroid.Screens.Dialogs.WarningDialog;
 import pl.carrifyandroid.Utils.EventBus;
 import pl.carrifyandroid.Utils.LocationUtils;
 import pl.carrifyandroid.Utils.StorageHelper;
@@ -163,6 +164,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
 
         MapsInitializer.initialize(Objects.requireNonNull(getContext()).getApplicationContext());
         getCarsFromApi();
+        mapsManager.checkDriverLicense();
     }
 
     @Subscribe
@@ -293,6 +295,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         if (!validRent)
             FancyToast.makeText(getContext(), "You have successfully completed your rental!", LENGTH_LONG,
                     FancyToast.SUCCESS, false).show();
+    }
+
+    void checkDriverLicense(Integer body) {
+        if (body == 0) {
+            WarningDialog.showWarningDialog(getActivity());
+        }
     }
 
     class MyClusterRenderer extends DefaultClusterRenderer<ClusterMarker> {

@@ -11,6 +11,7 @@ import dagger.Provides;
 import pl.carrifyandroid.API.API;
 import pl.carrifyandroid.API.RestClient;
 import pl.carrifyandroid.Screens.SplashScreen.SplashManager;
+import pl.carrifyandroid.Utils.BitmapUtils;
 import pl.carrifyandroid.Utils.StorageHelper;
 import retrofit2.Retrofit;
 
@@ -54,6 +55,11 @@ public class AppModule {
     @Provides
     SplashManager provideSplashManager(API api, StorageHelper storageHelper) {
         return new SplashManager(api, storageHelper);
+    }
+
+    @Provides
+    public BitmapUtils provideBitmapUtils(Context context) {
+        return new BitmapUtils(context);
     }
 
 }

@@ -46,6 +46,7 @@ import pl.carrifyandroid.Models.EndRent;
 import pl.carrifyandroid.Models.RentChange;
 import pl.carrifyandroid.Screens.History.HistoryActivity;
 import pl.carrifyandroid.Screens.Maps.MapsFragment;
+import pl.carrifyandroid.Screens.Wallet.WalletActivity;
 import pl.carrifyandroid.Utils.EventBus;
 import pl.carrifyandroid.Utils.StorageHelper;
 
@@ -84,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Runnable runnable;
     private Runnable runnable2;
     private LocationProvider locationProvider;
-    private BottomSheetBehavior sheetBehavior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        sheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        BottomSheetBehavior sheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
         View headerView = navigationView.getHeaderView(0);
         navigationView.setNavigationItemSelectedListener(this);
@@ -196,8 +196,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-
-
     @Override
     public boolean onNavigationItemSelected(@NotNull MenuItem item) {
         switch (item.getItemId()) {
@@ -205,6 +203,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(this, HistoryActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
+            case R.id.wallet:
+                startActivity(new Intent(this, WalletActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                break;
+
 
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
