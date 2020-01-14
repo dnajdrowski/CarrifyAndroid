@@ -81,7 +81,6 @@ public class DriverLicenseActivity extends AppCompatActivity {
                         .subscribe(granted -> {
                             if (granted)
                                 captureImage();
-
                         });
                 break;
             case R.id.licenseBack:
@@ -95,10 +94,8 @@ public class DriverLicenseActivity extends AppCompatActivity {
         if (requestCode == REQUEST_PICTURE_CAPTURE) {
             Timber.d("requestCode = " + requestCode + " - resultCode = " + requestCode);
             if (type == 0) {
-                Timber.d("TEST0 = " + type);
                 Bitmap bitmap = bitmapUtils.decodeBitmapFromFile(frontPageFile);
                 if (bitmap != null) {
-                    Timber.d("TEST1 = " + type);
                     frontPageFile = bitmapUtils.setBitmapToFile(bitmapUtils.getResizedBitmap(bitmap, 800, 600));
                     type = 1;
                     Glide.with(this).load(R.drawable.driver_license_reverse).into(driverLicenseExample);
@@ -106,10 +103,8 @@ public class DriverLicenseActivity extends AppCompatActivity {
                     driverLicenseDescription.setText(getString(R.string.driver_license_description2));
                 }
             } else if (type == 1) {
-                Timber.d("TEST2 = " + type);
                 Bitmap bitmap = bitmapUtils.decodeBitmapFromFile(reversePageFile);
                 if (bitmap != null) {
-                    Timber.d("TEST3 = " + type);
                     reversePageFile = bitmapUtils.setBitmapToFile(bitmapUtils.getResizedBitmap(bitmap, 800, 600));
                     driverLicenseManager.uploadDriverLicensePhotos(frontPageFile, reversePageFile);
                 }
