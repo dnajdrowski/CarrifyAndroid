@@ -1,3 +1,4 @@
+
 version: 2
 jobs:
   build:
@@ -16,6 +17,7 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "build.gradle" }}
+
             - v1-dependencies-
 
       - run: gradle dependencies
@@ -25,4 +27,4 @@ jobs:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
-      - run: gradle build
+      - run: gradle test
