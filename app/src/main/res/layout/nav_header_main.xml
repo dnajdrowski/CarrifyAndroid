@@ -5,7 +5,7 @@
     android:id="@+id/relativeLayout13"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:background="@color/zxing_custom_possible_result_points"
+    android:background="@color/colorPrimary"
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -16,26 +16,12 @@
     tools:ignore="MissingDefaultResource">
 
     <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/avatar"
-        app:layout_constraintEnd_toEndOf="@+id/avatar"
-        app:layout_constraintStart_toStartOf="@+id/avatar"
-        app:layout_constraintTop_toTopOf="@+id/avatar"
-        app:srcCompat="@color/grey" />
-
-    <ImageView
         android:id="@+id/avatar"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="@color/white"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,29 +31,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:fontFamily="@font/nineteenth"
         android:text="Driver152342"
-        android:textColor="@color/grey"
+        android:textColor="@color/white"
         android:textSize="@dimen/text_size_18sp"
         app:layout_constraintBottom_toBottomOf="@+id/avatar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView8"
+        app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toTopOf="@+id/avatar"
         app:layout_constraintVertical_bias="0.7" />
 
-    <Button
-        android:id="@+id/edit"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/editBtn"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="55dp"
         android:layout_height="35dp"
-        android:background="@drawable/grey_circle_edittext"
+        android:backgroundTint="@color/white"
         android:fontFamily="@font/nineteenth"
+        android:gravity="center"
         android:text="Edit"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/grey"
-        android:textSize="@dimen/text_size_12sp"
+        android:textSize="@dimen/text_size_9sp"
+        app:cornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

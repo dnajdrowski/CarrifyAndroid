@@ -39,9 +39,17 @@
     <string name="take_photo_reverse_page">Take photo of reverse page</string>
     <string name="understood">Understood</string>
     <string name="apply_promo_code">Apply Promo Code</string>
-    <string name="add_money">Add money</string>
+    <string name="add_money">Top Up Wallet</string>
     <string name="wallet">Wallet</string>
     <string name="current_balance">Current balance</string>
     <string name="upload">Upload</string>
+    <string name="card">Card</string>
+    <string name="empty_balance">0,00 PLN</string>
+    <string name="history">History</string>
+    <string name="updated_wallet">Your wallet have been topped up successfully!</string>
+    <string name="wrong_amount">Wrong amount, please try again…!</string>
+    <string name="enter_amount">Enter amount to top up…</string>
+    <string name="top_up">Top up</string>
+    <string name="cancel">Cancel</string>
     <string name="driver_license_warning">We detected that you have not uploaded your driver license. In order to rent a car, you need to upload photos of it. Click "Upload" below to take photos.</string>
 </resources>

@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navUsername = headerView.findViewById(R.id.username);
         //avatar
         avatar = headerView.findViewById(R.id.avatar);
-        Glide.with(MainActivity.this).load(R.drawable.car_avatar).circleCrop().into(avatar);
+        Glide.with(MainActivity.this).load(R.drawable.car_avatar).circleCrop().centerInside().into(avatar);
         loopLocalization();
 
         MapsInitializer.initialize(getApplicationContext());
@@ -207,8 +207,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(this, WalletActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
-
-
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -280,9 +278,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START))
             drawer.closeDrawer(GravityCompat.START);
-        }
     }
 
     @Override

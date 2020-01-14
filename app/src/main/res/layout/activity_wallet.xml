@@ -26,13 +26,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/carrify_logo"
-            android:text="Card" />
+            android:text="@string/card" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/carrify_logo"
-            android:text="History" />
+            android:text="@string/history" />
 
     </com.google.android.material.tabs.TabLayout>
 
@@ -139,7 +139,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nineteenth"
-        android:text="49.00 PLN"
+        android:text="@string/empty_balance"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/text_size_35sp"

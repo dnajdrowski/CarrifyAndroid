@@ -1,7 +1,5 @@
 package pl.carrifyandroid.Screens.DriverLicense;
 
-import android.provider.Settings;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -13,7 +11,6 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import pl.carrifyandroid.API.API;
-import pl.carrifyandroid.Models.UploadResponse;
 import pl.carrifyandroid.Utils.StorageHelper;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,7 +54,7 @@ public class DriverLicenseManager {
 
             @Override
             public void onFailure(@NotNull @NonNull Call<Integer> call, @NotNull @NonNull Throwable t) {
-                Timber.d("Quick upload Manager %s", t.getLocalizedMessage());
+                Timber.d("Driver license upload photos: %s", t.getLocalizedMessage());
             }
         });
     }

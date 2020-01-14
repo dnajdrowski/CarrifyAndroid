@@ -1,7 +1,6 @@
 package pl.carrifyandroid.Screens.DriverLicense;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;

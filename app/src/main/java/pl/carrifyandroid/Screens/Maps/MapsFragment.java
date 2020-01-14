@@ -216,7 +216,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
     private void getCarsFromApi() {
         carDownloadHandler.postDelayed(runnable = () -> {
             mapsManager.getCarsData();
-            carDownloadHandler.postDelayed(runnable, 15000);
+            carDownloadHandler.postDelayed(runnable, 120000);
         }, 0);
     }
 

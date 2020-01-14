@@ -6,10 +6,12 @@ import okhttp3.MultipartBody;
 import pl.carrifyandroid.API.ApiModels.AuthRequest;
 import pl.carrifyandroid.API.ApiModels.JwtVerifyTokenRequest;
 import pl.carrifyandroid.API.ApiModels.NewRentRequest;
+import pl.carrifyandroid.API.ApiModels.TopUpWalletRequest;
 import pl.carrifyandroid.Models.Car;
 import pl.carrifyandroid.Models.RegionZone;
 import pl.carrifyandroid.Models.Rent;
 import pl.carrifyandroid.Models.UploadResponse;
+import pl.carrifyandroid.Models.Wallet;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -122,5 +124,15 @@ public interface API {
     @GET("api/driver-licences/user/{id}/check")
     Call<Integer> checkDriverLicense(
             @Path("id") int userId,
+            @Header("Authorization") String token);
+
+    @GET("api/wallets/{id}")
+    Call<Wallet> getWalletByUserId(
+            @Path("id") int userId,
+            @Header("Authorization") String token);
+
+    @POST("api/wallets/top-up")
+    Call<Wallet> topUpWalletById(
+            @Body TopUpWalletRequest topUpWalletRequest,
             @Header("Authorization") String token);
 }
