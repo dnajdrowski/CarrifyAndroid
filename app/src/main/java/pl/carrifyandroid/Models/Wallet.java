@@ -13,7 +13,7 @@ public class Wallet {
 
     private int id;
     private int amount;
-    private String lastUpdate;
-    private int operationType;
+    private String lastTransaction;
+    private int user;
 
 }

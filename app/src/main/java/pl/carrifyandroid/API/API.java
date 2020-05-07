@@ -10,6 +10,7 @@ import pl.carrifyandroid.API.ApiModels.TopUpWalletRequest;
 import pl.carrifyandroid.Models.Car;
 import pl.carrifyandroid.Models.RegionZone;
 import pl.carrifyandroid.Models.Rent;
+import pl.carrifyandroid.Models.Transaction;
 import pl.carrifyandroid.Models.UploadResponse;
 import pl.carrifyandroid.Models.Wallet;
 import retrofit2.Call;
@@ -134,5 +135,10 @@ public interface API {
     @POST("api/wallets/top-up")
     Call<Wallet> topUpWalletById(
             @Body TopUpWalletRequest topUpWalletRequest,
+            @Header("Authorization") String token);
+
+    @GET("api/wallets/{id}/history")
+    Call<List<Transaction>> getWalletHistoryByUserId(
+            @Path("id") int userId,
             @Header("Authorization") String token);
 }

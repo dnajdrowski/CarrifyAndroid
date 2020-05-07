@@ -15,10 +15,18 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
 import com.shashank.sony.fancytoastlib.FancyToast;
+
+import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -26,10 +34,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pl.carrifyandroid.App;
+import pl.carrifyandroid.Models.Transaction;
 import pl.carrifyandroid.Models.Wallet;
 import pl.carrifyandroid.R;
 
-public class WalletActivity extends AppCompatActivity {
+public class WalletActivity extends AppCompatActivity implements WalletHistoryAdapter.ItemClickListener {
 
     @BindView(R.id.walletAddMoneyBtn)
     MaterialButton walletAddMoneyBtn;
@@ -39,9 +48,15 @@ public class WalletActivity extends AppCompatActivity {
     TextView walletBalanceTxt;
     @BindView(R.id.walletApplyCodeBtn)
     MaterialButton walletApplyCodeBtn;
-
+    @BindView(R.id.walletTabs)
+    TabLayout walletTabs;
+    @BindView(R.id.walletHistoryLayout)
+    ConstraintLayout walletHistoryLayout;
+    @BindView(R.id.walletHistoryRecycler)
+    RecyclerView walletHistoryRecycler;
     @Inject
     WalletManager walletManager;
+    WalletHistoryAdapter walletHistoryAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,8 +65,45 @@ public class WalletActivity extends AppCompatActivity {
         App.component.inject(this);
         ButterKnife.bind(this);
         walletManager.getWallet();
+        walletTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (Objects.requireNonNull(tab.getText()).toString()) {
+                    case "Wallet":
+                    case "Card":
+                        walletHistoryLayout.setVisibility(View.GONE);
+                        break;
+                    case "History":
+                        walletManager.getWalletOperations();
+                        walletHistoryLayout.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        initRecyclerView();
     }
 
+    public void initRecyclerView() {
+        LinearLayoutManager horizontalLayoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        walletHistoryRecycler.setLayoutManager(horizontalLayoutManager);
+        walletHistoryRecycler.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
+        walletHistoryAdapter = new WalletHistoryAdapter(this);
+        walletHistoryAdapter.setClickListener(this);
+        walletHistoryRecycler.setAdapter(walletHistoryAdapter);
+        walletHistoryRecycler.setHasFixedSize(true);
+        walletHistoryRecycler.setItemAnimator(null);
+    }
 
     @OnClick({R.id.walletBack, R.id.walletApplyCodeBtn, R.id.walletAddMoneyBtn})
     public void onViewClicked(View view) {
@@ -129,5 +181,18 @@ public class WalletActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
+    }
+
+    public void fillWalletHistoryList(List<Transaction> body) {
+        walletHistoryAdapter.clear();
+        if (body.size() > 0)
+            walletHistoryAdapter.setList(body);
+        else
+            FancyToast.makeText(this, "Unfortunately, you do not have any operations on wallet.", FancyToast.LENGTH_SHORT, FancyToast.CONFUSING, false).show();
     }
 }

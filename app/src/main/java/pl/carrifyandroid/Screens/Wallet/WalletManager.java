@@ -4,10 +4,13 @@ import android.app.Dialog;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import pl.carrifyandroid.API.API;
 import pl.carrifyandroid.API.ApiModels.TopUpWalletRequest;
+import pl.carrifyandroid.Models.Transaction;
 import pl.carrifyandroid.Models.Wallet;
 import pl.carrifyandroid.Utils.StorageHelper;
 import retrofit2.Call;
@@ -66,6 +69,23 @@ public class WalletManager {
 
             @Override
             public void onFailure(@NotNull Call<Wallet> call, @NotNull Throwable t) {
+
+            }
+        });
+    }
+
+    void getWalletOperations() {
+        Call<List<Transaction>> call = api.getWalletHistoryByUserId(storageHelper.getInt("userId"), "Bearer " + storageHelper.getString("token"));
+        call.enqueue(new Callback<List<Transaction>>() {
+            @Override
+            public void onResponse(@NotNull Call<List<Transaction>> call, @NotNull Response<List<Transaction>> response) {
+                if (walletActivity != null)
+                    if (response.isSuccessful())
+                        walletActivity.fillWalletHistoryList(response.body());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<List<Transaction>> call, @NotNull Throwable t) {
 
             }
         });

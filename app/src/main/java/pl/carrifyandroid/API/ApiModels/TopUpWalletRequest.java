@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TopUpWalletRequest {
 
-    private int userId;
+    private int walletId;
     private int amount;
 
 }
