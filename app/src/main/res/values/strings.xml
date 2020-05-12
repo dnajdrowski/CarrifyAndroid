@@ -4,6 +4,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="login">Log in</string>
+    <string name="no_wallet_history">Unfortunately, you do not have any operations on wallet.</string>
+    <string name="no_coupons_history">Unfortunately, you do not have any used coupons.</string>
     <string name="enter_phone_to_login">Enter your phone number and rent the first car!</string>
     <string name="phone_number">Phone number</string>
     <string name="sign_in">Sign in</string>
@@ -47,9 +49,13 @@
     <string name="empty_balance">0,00 PLN</string>
     <string name="history">History</string>
     <string name="updated_wallet">Your wallet have been topped up successfully!</string>
+    <string name="coupon_used_success">Coupon used successfully!</string>
     <string name="wrong_amount">Wrong amount, please try again…!</string>
+    <string name="wrong_code">You need to enter code…</string>
     <string name="enter_amount">Enter amount to top up…</string>
+    <string name="enter_coupon">Enter coupon code</string>
     <string name="top_up">Top up</string>
+    <string name="use">Use</string>
     <string name="cancel">Cancel</string>
     <string name="driver_license_warning">We detected that you have not uploaded your driver license. In order to rent a car, you need to upload photos of it. Click "Upload" below to take photos.</string>
 </resources>

@@ -7,11 +7,13 @@ import pl.carrifyandroid.API.ApiModels.AuthRequest;
 import pl.carrifyandroid.API.ApiModels.JwtVerifyTokenRequest;
 import pl.carrifyandroid.API.ApiModels.NewRentRequest;
 import pl.carrifyandroid.API.ApiModels.TopUpWalletRequest;
+import pl.carrifyandroid.API.ApiModels.UseCouponCodeRequest;
 import pl.carrifyandroid.Models.Car;
+import pl.carrifyandroid.Models.Coupon;
 import pl.carrifyandroid.Models.RegionZone;
 import pl.carrifyandroid.Models.Rent;
 import pl.carrifyandroid.Models.Transaction;
-import pl.carrifyandroid.Models.UploadResponse;
+import pl.carrifyandroid.Models.UsedCoupon;
 import pl.carrifyandroid.Models.Wallet;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -137,8 +139,19 @@ public interface API {
             @Body TopUpWalletRequest topUpWalletRequest,
             @Header("Authorization") String token);
 
+    @POST("api/coupons/user/{id}/use")
+    Call<UsedCoupon> useCoupon(
+            @Part("id") int userId,
+            @Body UseCouponCodeRequest useCouponCodeRequest,
+            @Header("Authorization") String token);
+
     @GET("api/wallets/{id}/history")
     Call<List<Transaction>> getWalletHistoryByUserId(
+            @Path("id") int userId,
+            @Header("Authorization") String token);
+
+    @GET("api/coupons/user/{id}")
+    Call<List<Coupon>> getCouponsHistory(
             @Path("id") int userId,
             @Header("Authorization") String token);
 }

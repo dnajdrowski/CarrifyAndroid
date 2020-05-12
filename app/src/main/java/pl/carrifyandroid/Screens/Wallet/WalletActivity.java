@@ -34,11 +34,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pl.carrifyandroid.App;
+import pl.carrifyandroid.Models.Coupon;
 import pl.carrifyandroid.Models.Transaction;
+import pl.carrifyandroid.Models.UsedCoupon;
 import pl.carrifyandroid.Models.Wallet;
 import pl.carrifyandroid.R;
 
-public class WalletActivity extends AppCompatActivity implements WalletHistoryAdapter.ItemClickListener {
+public class WalletActivity extends AppCompatActivity {
 
     @BindView(R.id.walletAddMoneyBtn)
     MaterialButton walletAddMoneyBtn;
@@ -52,11 +54,19 @@ public class WalletActivity extends AppCompatActivity implements WalletHistoryAd
     TabLayout walletTabs;
     @BindView(R.id.walletHistoryLayout)
     ConstraintLayout walletHistoryLayout;
+    @BindView(R.id.couponsHistoryLayout)
+    ConstraintLayout couponsHistoryLayout;
     @BindView(R.id.walletHistoryRecycler)
     RecyclerView walletHistoryRecycler;
+    @BindView(R.id.couponsHistoryRecycler)
+    RecyclerView couponsHistoryRecycler;
     @Inject
     WalletManager walletManager;
     WalletHistoryAdapter walletHistoryAdapter;
+    CouponsHistoryAdapter couponsHistoryAdapter;
+
+    private boolean couponsLoaded = false;
+    private boolean operationsLoaded = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,17 +74,31 @@ public class WalletActivity extends AppCompatActivity implements WalletHistoryAd
         setContentView(R.layout.activity_wallet);
         App.component.inject(this);
         ButterKnife.bind(this);
+        initWalletOperationsRecycler();
+        initCouponHistoryRecycler();
         walletManager.getWallet();
         walletTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (Objects.requireNonNull(tab.getText()).toString()) {
                     case "Wallet":
-                    case "Card":
+                        walletHistoryLayout.setVisibility(View.GONE);
+                        couponsHistoryLayout.setVisibility(View.GONE);
+                        break;
+                    case "Coupons":
+                        if (!couponsLoaded) {
+                            walletManager.getCouponsHistory();
+                            couponsLoaded = true;
+                        }
+                        couponsHistoryLayout.setVisibility(View.VISIBLE);
                         walletHistoryLayout.setVisibility(View.GONE);
                         break;
-                    case "History":
-                        walletManager.getWalletOperations();
+                    case "Operations":
+                        if (!operationsLoaded) {
+                            walletManager.getWalletOperations();
+                            operationsLoaded = true;
+                        }
+                        couponsHistoryLayout.setVisibility(View.GONE);
                         walletHistoryLayout.setVisibility(View.VISIBLE);
                         break;
                 }
@@ -90,19 +114,26 @@ public class WalletActivity extends AppCompatActivity implements WalletHistoryAd
 
             }
         });
-        initRecyclerView();
     }
 
-    public void initRecyclerView() {
+    public void initWalletOperationsRecycler() {
         LinearLayoutManager horizontalLayoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         walletHistoryRecycler.setLayoutManager(horizontalLayoutManager);
-        walletHistoryRecycler.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
         walletHistoryAdapter = new WalletHistoryAdapter(this);
-        walletHistoryAdapter.setClickListener(this);
         walletHistoryRecycler.setAdapter(walletHistoryAdapter);
         walletHistoryRecycler.setHasFixedSize(true);
         walletHistoryRecycler.setItemAnimator(null);
+    }
+
+    public void initCouponHistoryRecycler() {
+        LinearLayoutManager horizontalLayoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        couponsHistoryRecycler.setLayoutManager(horizontalLayoutManager);
+        couponsHistoryAdapter = new CouponsHistoryAdapter(this);
+        couponsHistoryRecycler.setAdapter(couponsHistoryAdapter);
+        couponsHistoryRecycler.setHasFixedSize(true);
+        couponsHistoryRecycler.setItemAnimator(null);
     }
 
     @OnClick({R.id.walletBack, R.id.walletApplyCodeBtn, R.id.walletAddMoneyBtn})
@@ -112,7 +143,7 @@ public class WalletActivity extends AppCompatActivity implements WalletHistoryAd
                 finish();
                 break;
             case R.id.walletApplyCodeBtn:
-                FancyToast.makeText(this, "This function is not available...!", FancyToast.LENGTH_SHORT, FancyToast.INFO, false).show();
+                showAddCouponDialog();
                 break;
             case R.id.walletAddMoneyBtn:
                 showTopUpWalletDialog();
@@ -143,7 +174,46 @@ public class WalletActivity extends AppCompatActivity implements WalletHistoryAd
 
     }
 
-    public void showTopUpWalletDialog() {
+    private void showAddCouponDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_add_coupon);
+
+        Window window = dialog.getWindow();
+        if (window == null) return;
+        Display display = this.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        WindowManager.LayoutParams params = window.getAttributes();
+        params.width = width - 50;
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(params);
+
+        MaterialButton useCouponBtn = dialog.findViewById(R.id.useCouponBtn);
+        MaterialButton cancelCouponBtn = dialog.findViewById(R.id.cancelCouponBtn);
+        EditText couponCodeTxt = dialog.findViewById(R.id.couponCodeTxt);
+        TextInputLayout couponCodeTxtLayout = dialog.findViewById(R.id.couponCodeTxtLayout);
+
+        couponCodeTxtLayout.setError(null);
+
+        cancelCouponBtn.setOnClickListener(view -> dialog.dismiss());
+
+        useCouponBtn.setOnClickListener(view -> {
+            String code = couponCodeTxt.getText().toString();
+            if (code.length() == 0) {
+                FancyToast.makeText(this, getString(R.string.wrong_code), FancyToast.LENGTH_SHORT, FancyToast.CONFUSING, false).show();
+                return;
+            }
+            couponCodeTxtLayout.setError(null);
+            walletManager.useCoupon(code, dialog);
+        });
+
+        dialog.show();
+    }
+
+    private void showTopUpWalletDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -183,16 +253,27 @@ public class WalletActivity extends AppCompatActivity implements WalletHistoryAd
         dialog.show();
     }
 
-    @Override
-    public void onItemClick(View view, int position) {
-
-    }
-
     public void fillWalletHistoryList(List<Transaction> body) {
         walletHistoryAdapter.clear();
         if (body.size() > 0)
             walletHistoryAdapter.setList(body);
         else
-            FancyToast.makeText(this, "Unfortunately, you do not have any operations on wallet.", FancyToast.LENGTH_SHORT, FancyToast.CONFUSING, false).show();
+            FancyToast.makeText(this, getString(R.string.no_wallet_history), FancyToast.LENGTH_SHORT, FancyToast.CONFUSING, false).show();
+    }
+
+    public void fillCouponsHistoryList(List<Coupon> body) {
+        if (body.size() > 0)
+            couponsHistoryAdapter.setList(body);
+        else
+            FancyToast.makeText(this, getString(R.string.no_coupons_history), FancyToast.LENGTH_SHORT, FancyToast.CONFUSING, false).show();
+
+    }
+
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
+    public void usedCouponResponse(UsedCoupon body, Dialog dialog) {
+        walletBalanceTxt.setText(String.format("%.2f", (float) (body.getAmount() / 100)) + " PLN");
+        if (dialog != null)
+            dialog.dismiss();
+        FancyToast.makeText(this, getString(R.string.coupon_used_success), FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
     }
 }

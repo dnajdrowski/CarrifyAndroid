@@ -10,7 +10,10 @@ import javax.inject.Inject;
 
 import pl.carrifyandroid.API.API;
 import pl.carrifyandroid.API.ApiModels.TopUpWalletRequest;
+import pl.carrifyandroid.API.ApiModels.UseCouponCodeRequest;
+import pl.carrifyandroid.Models.Coupon;
 import pl.carrifyandroid.Models.Transaction;
+import pl.carrifyandroid.Models.UsedCoupon;
 import pl.carrifyandroid.Models.Wallet;
 import pl.carrifyandroid.Utils.StorageHelper;
 import retrofit2.Call;
@@ -86,6 +89,41 @@ public class WalletManager {
 
             @Override
             public void onFailure(@NotNull Call<List<Transaction>> call, @NotNull Throwable t) {
+
+            }
+        });
+    }
+
+    public void getCouponsHistory() {
+        Call<List<Coupon>> call = api.getCouponsHistory(storageHelper.getInt("userId"), "Bearer " + storageHelper.getString("token"));
+        call.enqueue(new Callback<List<Coupon>>() {
+            @Override
+            public void onResponse(@NotNull Call<List<Coupon>> call, @NotNull Response<List<Coupon>> response) {
+                if (walletActivity != null)
+                    if (response.isSuccessful())
+                        walletActivity.fillCouponsHistoryList(response.body());
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<List<Coupon>> call, @NotNull Throwable t) {
+
+            }
+        });
+    }
+
+    public void useCoupon(String code, Dialog dialog) {
+        Call<UsedCoupon> call = api.useCoupon(storageHelper.getInt("userId"), new UseCouponCodeRequest(code), "Bearer " + storageHelper.getString("token"));
+        call.enqueue(new Callback<UsedCoupon>() {
+            @Override
+            public void onResponse(@NotNull Call<UsedCoupon> call, @NotNull Response<UsedCoupon> response) {
+                if (walletActivity != null)
+                    if (response.isSuccessful())
+                        if (response.body() != null)
+                            walletActivity.usedCouponResponse(response.body(), dialog);
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<UsedCoupon> call, @NotNull Throwable t) {
 
             }
         });

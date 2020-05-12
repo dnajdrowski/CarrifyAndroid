@@ -35,6 +35,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -240,8 +241,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         try {
             @SuppressLint("SimpleDateFormat")
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Warsaw"));
             Date createdAtDate = dateFormat.parse(oldtime.replaceAll("T", " "));
-            Date todayDate = new Date();
+            Date todayDate = dateFormat.parse(dateFormat.format(new Date()));
             long timeDifference = 0;
             if (createdAtDate != null) {
                 timeDifference = todayDate.getTime() - createdAtDate.getTime();

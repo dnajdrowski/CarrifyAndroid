@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="coupon_width">300dp</dimen>
+    <dimen name="coupon_height">150dp</dimen>
     <dimen name="text_size_9sp">9sp</dimen>
     <dimen name="text_size_12sp">12sp</dimen>
     <dimen name="text_size_15sp">15sp</dimen>

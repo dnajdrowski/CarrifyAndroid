@@ -49,7 +49,6 @@ public class RestClient {
         protocols.add(Protocol.HTTP_2);
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.baseUrl(API.url);
-
         builder.addConverterFactory(GsonConverterFactory.create());
         builder.client(client);
         return builder.build();

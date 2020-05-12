@@ -25,7 +25,6 @@ public class WalletHistoryAdapter extends RecyclerView.Adapter<WalletHistoryAdap
     private Context context;
     private List<Transaction> transactionList = new ArrayList<>();
     private LayoutInflater mInflater;
-    private WalletHistoryAdapter.ItemClickListener mClickListener;
 
     WalletHistoryAdapter(Context context) {
         this.context = context;
@@ -36,7 +35,7 @@ public class WalletHistoryAdapter extends RecyclerView.Adapter<WalletHistoryAdap
     @Override
     public WalletHistoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.list_wallet_item, parent, false);
-        return new WalletHistoryAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @SuppressLint("DefaultLocale")
@@ -70,15 +69,7 @@ public class WalletHistoryAdapter extends RecyclerView.Adapter<WalletHistoryAdap
         notifyDataSetChanged();
     }
 
-    void setClickListener(WalletHistoryAdapter.ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
-
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView walletOperationBalance, walletOperationAmount, walletOperationDate;
         ImageView walletOperationImage;
 
@@ -95,7 +86,6 @@ public class WalletHistoryAdapter extends RecyclerView.Adapter<WalletHistoryAdap
 
         @Override
         public void onClick(View v) {
-            if (mClickListener != null) mClickListener.onItemClick(v, getAdapterPosition());
         }
     }
 }
