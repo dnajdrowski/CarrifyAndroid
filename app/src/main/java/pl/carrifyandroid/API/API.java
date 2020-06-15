@@ -80,6 +80,11 @@ public interface API {
             @Body NewRentRequest newRentRequest,
             @Header("Authorization") String token);
 
+    @POST("api/reservations/new-reservation")
+    Call<Reservation> addNewReservation(
+            @Body NewRentRequest newReservationRequest,
+            @Header("Authorization") String token);
+
     /**
      * POST
      * EXAMPLE

@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +47,7 @@ import pl.carrifyandroid.Models.BusLocation;
 import pl.carrifyandroid.Models.EndRent;
 import pl.carrifyandroid.Models.RentChange;
 import pl.carrifyandroid.Models.Reservation;
+import pl.carrifyandroid.Models.ReservationChange;
 import pl.carrifyandroid.Screens.History.HistoryActivity;
 import pl.carrifyandroid.Screens.Maps.MapsFragment;
 import pl.carrifyandroid.Screens.Wallet.WalletActivity;
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Runnable runnable;
     private Runnable runnable2;
     private LocationProvider locationProvider;
+    private CountDownTimer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -241,17 +244,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @SuppressLint("SetTextI18n")
     @Subscribe
-    public void onReservationChange(Reservation reservationChange) {
-        if (true) {
+    public void onReservationChange(ReservationChange reservationChange) {
+        if (reservationChange.isReserved()) {
             bottomSheet.setVisibility(View.VISIBLE);
             rentDistance.setVisibility(View.GONE);
             rentTime.setVisibility(View.GONE);
-            h.postDelayed(runnable = () -> {
-                rentTime.setText(printDifference(reservationChange.getFinishedAt()));
-                h.postDelayed(runnable, 1000);
-            }, 1000);
             parkButton.setText("Rent");
+            timer = new CountDownTimer(1500000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    parkButton.setText("Rent " + millisUntilFinished / 1000 + "s");
+                }
+
+                @Override
+                public void onFinish() {
+                    EventBus.getBus().post(new ReservationChange(false, reservationChange.getReservation()));
+                }
+            };
+            timer.start();
             parkButton.setOnClickListener(view -> {
+                //KRZYSIU TUTAJ
+                timer.cancel();
             });
         } else {
             bottomSheet.setVisibility(View.GONE);

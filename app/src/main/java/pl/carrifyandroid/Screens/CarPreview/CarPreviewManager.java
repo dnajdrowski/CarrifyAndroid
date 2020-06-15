@@ -57,20 +57,23 @@ public class CarPreviewManager {
     }
 
     void setNewReservation(int carId) {
-        carPreviewDialog.startReservationTimer();
-//        Call<Reservation> call = api.addNewReservation(new ReservationRequest(carId, storageHelper.getInt("userId"), "Bearer " + storageHelper.getString("token")));
-//        call.enqueue(new Callback<Reservation>() {
-//
-//            @Override
-//            public void onResponse(Call<Reservation> call, Response<Reservation> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Reservation> call, Throwable t) {
-//
-//            }
-//        });
+        Call<Reservation> call = api.addNewReservation(new NewRentRequest(carId, storageHelper.getInt("userId")), "Bearer " + storageHelper.getString("token"));
+        call.enqueue(new Callback<Reservation>() {
+
+            @Override
+            public void onResponse(Call<Reservation> call, Response<Reservation> response) {
+                if (carPreviewDialog != null)
+                    if (response.isSuccessful())
+                        carPreviewDialog.showNewReservationResponse(response.body());
+                    else
+                        carPreviewDialog.showErrorResponse(ErrorHandler.getMessageFromErrorBody(response.errorBody()));
+            }
+
+            @Override
+            public void onFailure(Call<Reservation> call, Throwable t) {
+                Timber.d("Carrify Splash Manager %s", t.getLocalizedMessage());
+            }
+        });
     }
 
 }
