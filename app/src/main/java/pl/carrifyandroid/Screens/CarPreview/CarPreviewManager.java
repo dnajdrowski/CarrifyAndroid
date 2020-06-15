@@ -2,6 +2,8 @@ package pl.carrifyandroid.Screens.CarPreview;
 
 import androidx.annotation.NonNull;
 
+import com.squareup.otto.Subscribe;
+
 import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
@@ -9,7 +11,9 @@ import javax.inject.Inject;
 import pl.carrifyandroid.API.API;
 import pl.carrifyandroid.API.ApiModels.NewRentRequest;
 import pl.carrifyandroid.Models.Rent;
+import pl.carrifyandroid.Models.RentChange;
 import pl.carrifyandroid.Models.Reservation;
+import pl.carrifyandroid.Models.StartRent;
 import pl.carrifyandroid.Utils.ErrorHandler;
 import pl.carrifyandroid.Utils.StorageHelper;
 import retrofit2.Call;
@@ -54,6 +58,11 @@ public class CarPreviewManager {
                 Timber.d("Carrify Splash Manager %s", t.getLocalizedMessage());
             }
         });
+    }
+
+    @Subscribe
+    public void onStartRent(StartRent startRent) {
+        setNewRent(startRent.getCarId());
     }
 
     void setNewReservation(int carId) {

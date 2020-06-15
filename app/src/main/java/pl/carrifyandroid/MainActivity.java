@@ -48,6 +48,7 @@ import pl.carrifyandroid.Models.EndRent;
 import pl.carrifyandroid.Models.RentChange;
 import pl.carrifyandroid.Models.Reservation;
 import pl.carrifyandroid.Models.ReservationChange;
+import pl.carrifyandroid.Models.StartRent;
 import pl.carrifyandroid.Screens.History.HistoryActivity;
 import pl.carrifyandroid.Screens.Maps.MapsFragment;
 import pl.carrifyandroid.Screens.Wallet.WalletActivity;
@@ -263,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             };
             timer.start();
             parkButton.setOnClickListener(view -> {
-                //KRZYSIU TUTAJ
+                EventBus.getBus().post(new StartRent(reservationChange.getReservation().getCarId()));
                 timer.cancel();
             });
         } else {
