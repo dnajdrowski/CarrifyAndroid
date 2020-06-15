@@ -45,6 +45,7 @@ import butterknife.ButterKnife;
 import pl.carrifyandroid.Models.BusLocation;
 import pl.carrifyandroid.Models.EndRent;
 import pl.carrifyandroid.Models.RentChange;
+import pl.carrifyandroid.Models.Reservation;
 import pl.carrifyandroid.Screens.History.HistoryActivity;
 import pl.carrifyandroid.Screens.Maps.MapsFragment;
 import pl.carrifyandroid.Screens.Wallet.WalletActivity;
@@ -219,6 +220,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onRentChange(RentChange rentChange) {
         if (rentChange.isRent()) {
             bottomSheet.setVisibility(View.VISIBLE);
+            rentDistance.setVisibility(View.VISIBLE);
+            rentTime.setVisibility(View.VISIBLE);
             h.postDelayed(runnable = () -> {
                 rentTime.setText(printDifference(rentChange.getRental().getCreatedAt()));
                 h.postDelayed(runnable, 1000);
@@ -226,8 +229,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             rentDistance.setText(rentChange.getRental().getDistance() + " km");
             rentCarRegNumber.setText(rentChange.getRental().getCar().getRegistrationNumber());
             rentCarName.setText(rentChange.getRental().getCar().getName());
+            parkButton.setText("Park");
             parkButton.setOnClickListener(view -> {
                 EventBus.getBus().post(new EndRent(rentChange.getRental().getId()));
+            });
+        } else {
+            bottomSheet.setVisibility(View.GONE);
+            h.removeCallbacks(runnable);
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Subscribe
+    public void onReservationChange(Reservation reservationChange) {
+        if (true) {
+            bottomSheet.setVisibility(View.VISIBLE);
+            rentDistance.setVisibility(View.GONE);
+            rentTime.setVisibility(View.GONE);
+            h.postDelayed(runnable = () -> {
+                rentTime.setText(printDifference(reservationChange.getFinishedAt()));
+                h.postDelayed(runnable, 1000);
+            }, 1000);
+            parkButton.setText("Rent");
+            parkButton.setOnClickListener(view -> {
             });
         } else {
             bottomSheet.setVisibility(View.GONE);

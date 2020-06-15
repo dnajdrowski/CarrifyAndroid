@@ -10,6 +10,7 @@ import pl.carrifyandroid.API.API;
 import pl.carrifyandroid.Models.Car;
 import pl.carrifyandroid.Models.RegionZone;
 import pl.carrifyandroid.Models.Rent;
+import pl.carrifyandroid.Models.Reservation;
 import pl.carrifyandroid.Utils.StorageHelper;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -86,6 +87,23 @@ public class MapsManager {
 
             @Override
             public void onFailure(@NotNull Call<Rent> call, @NotNull Throwable t) {
+                Timber.e(t);
+            }
+        });
+    }
+
+    void getActiveReservations() {
+        Call<Reservation> call = api.getActiveReservations(storageHelper.getInt("userId"), "Bearer " + storageHelper.getString("token"));
+        call.enqueue(new Callback<Reservation>() {
+            @Override
+            public void onResponse(@NotNull Call<Reservation> call, @NotNull Response<Reservation> response) {
+                if (mapsFragment != null)
+                    if (response.isSuccessful())
+                        mapsFragment.showReservationResponse(response.body(), true);
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<Reservation> call, @NotNull Throwable t) {
                 Timber.e(t);
             }
         });

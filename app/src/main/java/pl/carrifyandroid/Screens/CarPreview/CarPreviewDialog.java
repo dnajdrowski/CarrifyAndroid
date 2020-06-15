@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ import butterknife.OnClick;
 import pl.carrifyandroid.App;
 import pl.carrifyandroid.Models.Rent;
 import pl.carrifyandroid.Models.RentChange;
+import pl.carrifyandroid.Models.Reservation;
 import pl.carrifyandroid.R;
 import pl.carrifyandroid.Utils.EventBus;
 
@@ -41,10 +43,14 @@ public class CarPreviewDialog extends DialogFragment {
 
     @BindView(R.id.rentButton)
     MaterialButton rentButton;
+    @BindView(R.id.reservationButton)
+    MaterialButton reservationButton;
     @BindView(R.id.car_registration_number)
     TextView carRegistrationNumber;
     @BindView(R.id.car_fuel)
     TextView carFuel;
+
+    private CountDownTimer timer;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -69,6 +75,13 @@ public class CarPreviewDialog extends DialogFragment {
     void onRentButtonClicked() {
         if (getArguments() != null) {
             carPreviewManager.setNewRent(getArguments().getInt("carId"));
+        }
+    }
+
+    @OnClick(R.id.reservationButton)
+    void onReservationButtonClicked() {
+        if (getArguments() != null) {
+            carPreviewManager.setNewReservation(getArguments().getInt("carId"));
         }
     }
 
@@ -106,8 +119,41 @@ public class CarPreviewDialog extends DialogFragment {
         dismiss();
     }
 
+    void showNewReservationResponse(Reservation body) {
+//        EventBus.getBus().post(new ReservationChange(true, body));
+        FancyToast.makeText(getContext(), getString(R.string.reservation_successful), LENGTH_LONG,
+                FancyToast.SUCCESS, false).show();
+        rentButton.setVisibility(View.INVISIBLE);
+        reservationButton.setEnabled(false);
+        startReservationTimer();
+    }
+
     void showErrorResponse(String messageFromErrorBody) {
         FancyToast.makeText(getContext(), messageFromErrorBody, LENGTH_LONG,
                 FancyToast.ERROR, false).show();
+    }
+
+     void startReservationTimer() {
+        timer = new CountDownTimer(900000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                long minutes = millisUntilFinished % 60000;
+                long seconds = (millisUntilFinished - (minutes * 6000)) % 1000;
+                reservationButton.setText(String.format("%d:%d", minutes, seconds));
+            }
+
+            public void onFinish() {
+                rentButton.setVisibility(View.VISIBLE);
+                reservationButton.setEnabled(true);
+            }
+        };
+
+        timer.start();
+    }
+
+    private void stopReservationCountdown() {
+        if (timer != null) {
+            timer.cancel();
+        }
     }
 }

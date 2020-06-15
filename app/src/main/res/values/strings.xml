@@ -27,6 +27,7 @@
     <string name="register_success">Register successful! You will be moved to the Application!</string>
     <string name="rent">Rent</string>
     <string name="rent_successful">You rented car successfully!</string>
+    <string name="reservation_successful">You reserved car successfully!</string>
     <string name="time_of_rent">Time of rent:</string>
     <string name="distance">Distance:</string>
     <string name="park">Park</string>
@@ -58,4 +59,5 @@
     <string name="use">Use</string>
     <string name="cancel">Cancel</string>
     <string name="driver_license_warning">We detected that you have not uploaded your driver license. In order to rent a car, you need to upload photos of it. Click "Upload" below to take photos.</string>
+    <string name="reservation">Reservation</string>
 </resources>

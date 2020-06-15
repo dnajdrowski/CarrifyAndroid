@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import pl.carrifyandroid.API.API;
 import pl.carrifyandroid.API.ApiModels.NewRentRequest;
 import pl.carrifyandroid.Models.Rent;
+import pl.carrifyandroid.Models.Reservation;
 import pl.carrifyandroid.Utils.ErrorHandler;
 import pl.carrifyandroid.Utils.StorageHelper;
 import retrofit2.Call;
@@ -53,6 +54,23 @@ public class CarPreviewManager {
                 Timber.d("Carrify Splash Manager %s", t.getLocalizedMessage());
             }
         });
+    }
+
+    void setNewReservation(int carId) {
+        carPreviewDialog.startReservationTimer();
+//        Call<Reservation> call = api.addNewReservation(new ReservationRequest(carId, storageHelper.getInt("userId"), "Bearer " + storageHelper.getString("token")));
+//        call.enqueue(new Callback<Reservation>() {
+//
+//            @Override
+//            public void onResponse(Call<Reservation> call, Response<Reservation> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Reservation> call, Throwable t) {
+//
+//            }
+//        });
     }
 
 }

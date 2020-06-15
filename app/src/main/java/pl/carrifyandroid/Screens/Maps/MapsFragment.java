@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,8 @@ import pl.carrifyandroid.Models.RegionZone;
 import pl.carrifyandroid.Models.RegionZoneCoords;
 import pl.carrifyandroid.Models.Rent;
 import pl.carrifyandroid.Models.RentChange;
+import pl.carrifyandroid.Models.Reservation;
+import pl.carrifyandroid.Models.ReservationChange;
 import pl.carrifyandroid.R;
 import pl.carrifyandroid.Screens.CarPreview.CarPreviewDialog;
 import pl.carrifyandroid.Screens.Dialogs.WarningDialog;
@@ -123,7 +126,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         LatLng latLngMe = new LatLng(54.406587, 18.594610);
 
         CameraPosition cameraPositionMe = new CameraPosition.Builder()
-                .target(latLngMe)            // Sets the center of the map to location user
+                .target(latLngMe)           // Sets the center of the map to location user
                 .zoom(14)                   // Sets the zoom
                 .bearing(0)                // Sets the orientation of the camera to east
                 .tilt(40)                   // Sets the tilt of the camera to 30 degrees
@@ -248,6 +251,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         mapsManager.onAttach(this);
         EventBus.getBus().register(this);
         mapsManager.getActiveRents();
+        mapsManager.getActiveReservations();
     }
 
     @Override
@@ -294,6 +298,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
             EventBus.getBus().post(new RentChange(validRent, body));
         if (!validRent)
             FancyToast.makeText(getContext(), "You have successfully completed your rental!", LENGTH_LONG,
+                    FancyToast.SUCCESS, false).show();
+    }
+
+    void showReservationResponse(Reservation body, boolean validReservation) {
+        if (body != null)
+            EventBus.getBus().post(new ReservationChange(validReservation, body));
+        if (!validReservation)
+            FancyToast.makeText(getContext(), "Your reservation has expired!", LENGTH_LONG,
                     FancyToast.SUCCESS, false).show();
     }
 

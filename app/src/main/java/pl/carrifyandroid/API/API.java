@@ -12,6 +12,7 @@ import pl.carrifyandroid.Models.Car;
 import pl.carrifyandroid.Models.Coupon;
 import pl.carrifyandroid.Models.RegionZone;
 import pl.carrifyandroid.Models.Rent;
+import pl.carrifyandroid.Models.Reservation;
 import pl.carrifyandroid.Models.Transaction;
 import pl.carrifyandroid.Models.UsedCoupon;
 import pl.carrifyandroid.Models.Wallet;
@@ -87,6 +88,11 @@ public interface API {
      */
     @GET("api/rents/user/{id}/active")
     Call<Rent> getActiveRents(
+            @Path("id") int id,
+            @Header("Authorization") String token);
+
+    @GET("api/reservations/user/{id}")
+    Call<Reservation> getActiveReservations(
             @Path("id") int id,
             @Header("Authorization") String token);
 

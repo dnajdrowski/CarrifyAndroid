@@ -27,7 +27,7 @@ public class RestClient {
         if (BuildConfig.DEBUG) {
             loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
         } else {
-            loggingInterceptor.level(HttpLoggingInterceptor.Level.NONE);
+            loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
         }
 
         OkHttpClient client = new OkHttpClient.Builder()
