@@ -60,11 +60,6 @@ public class CarPreviewManager {
         });
     }
 
-    @Subscribe
-    public void onStartRent(StartRent startRent) {
-        setNewRent(startRent.getCarId());
-    }
-
     void setNewReservation(int carId) {
         Call<Reservation> call = api.addNewReservation(new NewRentRequest(carId, storageHelper.getInt("userId")), "Bearer " + storageHelper.getString("token"));
         call.enqueue(new Callback<Reservation>() {

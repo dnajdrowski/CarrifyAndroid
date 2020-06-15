@@ -62,6 +62,7 @@ import pl.carrifyandroid.Models.Rent;
 import pl.carrifyandroid.Models.RentChange;
 import pl.carrifyandroid.Models.Reservation;
 import pl.carrifyandroid.Models.ReservationChange;
+import pl.carrifyandroid.Models.StartRent;
 import pl.carrifyandroid.R;
 import pl.carrifyandroid.Screens.CarPreview.CarPreviewDialog;
 import pl.carrifyandroid.Screens.Dialogs.WarningDialog;
@@ -168,6 +169,21 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         MapsInitializer.initialize(Objects.requireNonNull(getContext()).getApplicationContext());
         getCarsFromApi();
         mapsManager.checkDriverLicense();
+    }
+
+    @Subscribe
+    public void onStartRent(StartRent startRent) {
+        mapsManager.setNewRent(startRent.getCarId());
+    }
+    void showNewResponse(Rent body) {
+        EventBus.getBus().post(new RentChange(true, body));
+        FancyToast.makeText(getContext(), getString(R.string.rent_successful), LENGTH_LONG,
+                FancyToast.SUCCESS, false).show();
+    }
+
+    void showErrorResponse(String messageFromErrorBody) {
+        FancyToast.makeText(getContext(), messageFromErrorBody, LENGTH_LONG,
+                FancyToast.ERROR, false).show();
     }
 
     @Subscribe
