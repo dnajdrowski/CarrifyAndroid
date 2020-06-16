@@ -35,6 +35,7 @@ import org.jetbrains.annotations.NotNull;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -256,7 +257,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             rentTime.setVisibility(View.GONE);
             cancelButton.setVisibility(View.VISIBLE);
             parkButton.setText("Rent");
-            timer = new CountDownTimer(1500000, 1000) {
+            Date createdAtDate = new Date();
+            try {
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Warsaw"));
+                createdAtDate = dateFormat.parse(reservationChange.getReservation().getFinishedAt().replaceAll("T", " "));
+            } catch (Exception ignored) {}
+            timer = new CountDownTimer( createdAtDate.getTime()- System.currentTimeMillis(), 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     parkButton.setText("Rent " + millisUntilFinished / 1000 + "s");
