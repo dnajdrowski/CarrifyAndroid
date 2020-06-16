@@ -66,15 +66,13 @@ public class MapsManager {
             @Override
             public void onResponse(@NonNull Call<Reservation> call, @NotNull Response<Reservation> response) {
                 if (mapsFragment != null)
-                    if (response.isSuccessful())
-                        mapsFragment.showCancelReservation();
-                    else
-                        mapsFragment.showErrorResponse(ErrorHandler.getMessageFromErrorBody(response.errorBody()));
+                    mapsFragment.showCancelReservation();
             }
 
             @Override
             public void onFailure(@NotNull Call<Reservation> call, @NonNull Throwable t) {
-                Timber.d("Carrify Splash Manager %s", t.getLocalizedMessage());
+                if (mapsFragment != null)
+                    mapsFragment.showCancelReservation();
             }
         });
     }
