@@ -85,7 +85,7 @@ public interface API {
             @Body NewRentRequest newReservationRequest,
             @Header("Authorization") String token);
 
-    @POST("api/reservations/cancel/{id}")
+    @GET("api/reservations/cancel/{id}")
     Call<Reservation> cancelReservation(
             @Path("id") int id,
             @Header("Authorization") String token
