@@ -53,6 +53,7 @@ import butterknife.ButterKnife;
 import pl.carrifyandroid.App;
 import pl.carrifyandroid.Models.AttachMaps;
 import pl.carrifyandroid.Models.BusLocation;
+import pl.carrifyandroid.Models.CancelReservation;
 import pl.carrifyandroid.Models.Car;
 import pl.carrifyandroid.Models.ClusterMarker;
 import pl.carrifyandroid.Models.EndRent;
@@ -175,6 +176,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
     public void onStartRent(StartRent startRent) {
         mapsManager.setNewRent(startRent.getCarId());
     }
+
+    @Subscribe
+    public void onCancelReservation(CancelReservation cancelReservation) {
+        mapsManager.cancelReservation(cancelReservation.getId());
+    }
+
     void showNewResponse(Rent body) {
         EventBus.getBus().post(new RentChange(true, body));
         FancyToast.makeText(getContext(), getString(R.string.rent_successful), LENGTH_LONG,
@@ -323,6 +330,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
         if (!validReservation)
             FancyToast.makeText(getContext(), "Your reservation has expired!", LENGTH_LONG,
                     FancyToast.SUCCESS, false).show();
+    }
+
+    void showCancelReservation(Reservation body) {
+        if (body != null) {
+            EventBus.getBus().post(new ReservationChange(false, body));
+            FancyToast.makeText(getContext(), "Your reservation has been canceled!", LENGTH_LONG,
+                    FancyToast.SUCCESS, false).show();
+        }
     }
 
     void checkDriverLicense(Integer body) {

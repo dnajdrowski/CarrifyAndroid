@@ -44,6 +44,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.carrifyandroid.Models.BusLocation;
+import pl.carrifyandroid.Models.CancelReservation;
 import pl.carrifyandroid.Models.EndRent;
 import pl.carrifyandroid.Models.RentChange;
 import pl.carrifyandroid.Models.Reservation;
@@ -74,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView rentCarRegNumber;
     @BindView(R.id.rent_car_name)
     TextView rentCarName;
+    @BindView(R.id.cancel_button)
+    MaterialButton cancelButton;
     @BindView(R.id.park_button)
     MaterialButton parkButton;
 
@@ -226,6 +229,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             bottomSheet.setVisibility(View.VISIBLE);
             rentDistance.setVisibility(View.VISIBLE);
             rentTime.setVisibility(View.VISIBLE);
+            cancelButton.setVisibility(View.GONE);
             h.postDelayed(runnable = () -> {
                 rentTime.setText(printDifference(rentChange.getRental().getCreatedAt()));
                 h.postDelayed(runnable, 1000);
@@ -250,6 +254,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             bottomSheet.setVisibility(View.VISIBLE);
             rentDistance.setVisibility(View.GONE);
             rentTime.setVisibility(View.GONE);
+            cancelButton.setVisibility(View.VISIBLE);
             parkButton.setText("Rent");
             timer = new CountDownTimer(1500000, 1000) {
                 @Override
@@ -266,6 +271,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             parkButton.setOnClickListener(view -> {
                 EventBus.getBus().post(new StartRent(reservationChange.getReservation().getCarId()));
                 timer.cancel();
+            });
+            cancelButton.setOnClickListener(view -> {
+                EventBus.getBus().post(new CancelReservation(reservationChange.getReservation().getId()));
             });
         } else {
             bottomSheet.setVisibility(View.GONE);

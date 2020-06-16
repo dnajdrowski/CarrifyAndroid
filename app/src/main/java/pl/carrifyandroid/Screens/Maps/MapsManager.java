@@ -60,6 +60,25 @@ public class MapsManager {
         });
     }
 
+    void cancelReservation(int reservationId) {
+        Call<Reservation> call = api.cancelReservation(reservationId, "Bearer " + storageHelper.getString("token"));
+        call.enqueue(new Callback<Reservation>() {
+            @Override
+            public void onResponse(@NonNull Call<Reservation> call, @NotNull Response<Reservation> response) {
+                if (mapsFragment != null)
+                    if (response.isSuccessful())
+                        mapsFragment.showCancelReservation(response.body());
+                    else
+                        mapsFragment.showErrorResponse(ErrorHandler.getMessageFromErrorBody(response.errorBody()));
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<Reservation> call, @NonNull Throwable t) {
+                Timber.d("Carrify Splash Manager %s", t.getLocalizedMessage());
+            }
+        });
+    }
+
     void getRegionZones(int id) {
         Call<RegionZone> call = api.getRegionZones(id, "Bearer " + storageHelper.getString("token"));
         call.enqueue(new Callback<RegionZone>() {
