@@ -11,7 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -332,12 +331,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,
                     FancyToast.SUCCESS, false).show();
     }
 
-    void showCancelReservation(Reservation body) {
-        if (body != null) {
-            EventBus.getBus().post(new ReservationChange(false, body));
-            FancyToast.makeText(getContext(), "Your reservation has been canceled!", LENGTH_LONG,
-                    FancyToast.SUCCESS, false).show();
-        }
+    void showCancelReservation() {
+        EventBus.getBus().post(new ReservationChange(false, null));
+        FancyToast.makeText(getContext(), "Your reservation has been canceled!", LENGTH_LONG,
+                FancyToast.SUCCESS, false).show();
     }
 
     void checkDriverLicense(Integer body) {

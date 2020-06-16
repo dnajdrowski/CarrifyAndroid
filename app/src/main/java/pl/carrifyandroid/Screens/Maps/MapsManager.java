@@ -67,7 +67,7 @@ public class MapsManager {
             public void onResponse(@NonNull Call<Reservation> call, @NotNull Response<Reservation> response) {
                 if (mapsFragment != null)
                     if (response.isSuccessful())
-                        mapsFragment.showCancelReservation(response.body());
+                        mapsFragment.showCancelReservation();
                     else
                         mapsFragment.showErrorResponse(ErrorHandler.getMessageFromErrorBody(response.errorBody()));
             }
