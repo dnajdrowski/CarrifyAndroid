@@ -266,7 +266,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             timer = new CountDownTimer( createdAtDate.getTime()- System.currentTimeMillis(), 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    parkButton.setText("Rent " + millisUntilFinished / 1000 + "s");
+                    parkButton.setText("Rent " + (int) (TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)) + ":" +
+                            (int) (TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
                 }
 
                 @Override
