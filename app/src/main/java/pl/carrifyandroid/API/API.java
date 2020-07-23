@@ -158,7 +158,7 @@ public interface API {
 
     @POST("api/coupons/user/{id}/use")
     Call<UsedCoupon> useCoupon(
-            @Part("id") int userId,
+            @Path("id") int userId,
             @Body UseCouponCodeRequest useCouponCodeRequest,
             @Header("Authorization") String token);
 
